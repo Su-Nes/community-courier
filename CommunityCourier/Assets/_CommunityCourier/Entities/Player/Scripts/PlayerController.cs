@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     
     private CharacterController characterController;
     private Vector3 velocity;
-    private float verticalRotation = 0f;
+    private float verticalRotation;
 
     private void OnDisable()
     {
@@ -36,9 +36,7 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
 
         if (cameraPivot == null)
-        {
             enabled = false;
-        }
     }
 
     private void Update()
@@ -55,8 +53,8 @@ public class PlayerController : MonoBehaviour
             velocity.y = -2f;
         }
 
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = InputManager.instance.inputActionAsset.FindAction("Move").ReadValue<Vector2>().x;
+        float vertical = InputManager.instance.inputActionAsset.FindAction("Move").ReadValue<Vector2>().y;
 
         Vector3 moveDirection = transform.right * horizontal + transform.forward * vertical;
         moveDirection = Vector3.ClampMagnitude(moveDirection, 1f);
@@ -64,7 +62,7 @@ public class PlayerController : MonoBehaviour
         float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
         characterController.Move(moveDirection * currentSpeed * Time.deltaTime);
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (InputManager.instance.inputActionAsset.FindAction("Jump").IsPressed() && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
         }
@@ -75,8 +73,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleRotation()
     {
-        float mouseX = Input.GetAxis("Mouse X") * lookSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * lookSensitivity;
+        float mouseX = InputManager.instance.inputActionAsset.FindAction("Look").ReadValue<Vector2>().x * lookSensitivity;
+        float mouseY = InputManager.instance.inputActionAsset.FindAction("Look").ReadValue<Vector2>().y * lookSensitivity;
 
         verticalRotation -= mouseY;
         verticalRotation = Mathf.Clamp(verticalRotation, -maxLookAngle, maxLookAngle);
