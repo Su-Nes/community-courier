@@ -16,12 +16,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float lookSensitivity = 2f;
     [SerializeField] private float maxLookAngle = 80f;
 
-    [Header("References")]
-    [SerializeField] private Transform cameraPivot;
+    [Header("References")] 
+    [SerializeField] private LookAtTransform bodyLookAtScript;
+    [SerializeField] private Transform cameraPivot, bodyTf;
     
     private CharacterController characterController;
-    private Vector3 velocity;
-    private float verticalRotation;
+    private Vector3 velocity, moveDirection;
+    private float verticalRotation, horizontalRotation;
 
     private void OnDisable()
     {
@@ -43,6 +44,9 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         HandleRotation();
+        // move this to separate function for pretty
+        if (moveDirection != Vector3.zero)
+            bodyLookAtScript.LookAtPosition(transform.position + moveDirection * 999f); // change the 999 plz
     }
 
     private void HandleMovement()
@@ -56,7 +60,7 @@ public class PlayerController : MonoBehaviour
         float horizontal = InputManager.instance.inputActionAsset.FindAction("Move").ReadValue<Vector2>().x;
         float vertical = InputManager.instance.inputActionAsset.FindAction("Move").ReadValue<Vector2>().y;
 
-        Vector3 moveDirection = transform.right * horizontal + transform.forward * vertical;
+        moveDirection = cameraPivot.right * horizontal + cameraPivot.forward * vertical;
         moveDirection = Vector3.ClampMagnitude(moveDirection, 1f);
 
         float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
@@ -78,9 +82,10 @@ public class PlayerController : MonoBehaviour
 
         verticalRotation -= mouseY;
         verticalRotation = Mathf.Clamp(verticalRotation, -maxLookAngle, maxLookAngle);
-        cameraPivot.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
-
-        transform.Rotate(Vector3.up * mouseX);
+        
+        horizontalRotation += mouseX;
+        
+        cameraPivot.localRotation = Quaternion.Euler(verticalRotation, horizontalRotation, 0f);
     }
 
     private bool IsGrounded()
