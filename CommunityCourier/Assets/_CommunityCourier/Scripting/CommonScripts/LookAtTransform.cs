@@ -11,7 +11,7 @@ public class LookAtTransform : MonoBehaviour
     private void Update()
     {
         if(target != null)
-            LookAtPosition(target.position);
+            LookAtTarget();
     }
 
     public void LookAtPosition(Vector3 position)
@@ -19,5 +19,12 @@ public class LookAtTransform : MonoBehaviour
         Vector3 lookRot = transform.position + position;
         lookRot.y = transform.position.y;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(lookRot), lerpValue);
+    }
+
+    private void LookAtTarget()
+    {
+        /*Vector3 lookRot = transform.position + target.position;
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(lookRot), lerpValue);*/
+        transform.LookAt(target);
     }
 }
