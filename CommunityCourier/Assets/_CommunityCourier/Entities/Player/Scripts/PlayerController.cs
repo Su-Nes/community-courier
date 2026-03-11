@@ -1,9 +1,10 @@
 using System;
+using PurrNet;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
@@ -23,6 +24,16 @@ public class PlayerController : MonoBehaviour
     private CharacterController characterController;
     private Vector3 velocity, moveDirection;
     private float verticalRotation, horizontalRotation;
+
+    protected override void OnSpawned()
+    {
+        base.OnSpawned();
+
+        enabled = isOwner;
+        
+        if (!isOwner)
+            Destroy(cameraPivot.gameObject);
+    }
 
     private void OnDisable()
     {
@@ -44,9 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         HandleRotation();
-        // move this to separate function for pretty
-        if (moveDirection != Vector3.zero)
-            bodyLookAtScript.LookAtPosition(transform.position + moveDirection * 999f); // change the 999 plz
+        HandleBodyRotation();
     }
 
     private void HandleMovement()
@@ -62,6 +71,7 @@ public class PlayerController : MonoBehaviour
 
         moveDirection = cameraPivot.right * horizontal + cameraPivot.forward * vertical;
         moveDirection = Vector3.ClampMagnitude(moveDirection, 1f);
+        moveDirection.y = 0;
 
         float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
         characterController.Move(moveDirection * currentSpeed * Time.deltaTime);
@@ -86,6 +96,14 @@ public class PlayerController : MonoBehaviour
         horizontalRotation += mouseX;
         
         cameraPivot.localRotation = Quaternion.Euler(verticalRotation, horizontalRotation, 0f);
+    }
+
+    private void HandleBodyRotation()
+    {
+        Vector3 lookVector = transform.position + moveDirection * 99f;
+        
+        if (moveDirection != Vector3.zero)
+            bodyLookAtScript.LookAtPosition(lookVector);
     }
 
     private bool IsGrounded()
