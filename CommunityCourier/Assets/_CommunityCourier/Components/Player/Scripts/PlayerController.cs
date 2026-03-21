@@ -21,6 +21,8 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private LookAtTransform bodyLookAtScript;
     [SerializeField] private Transform cameraPivot, bodyTf;
     
+    public Transform BodyTransform => bodyTf;
+    
     private CharacterController characterController;
     private Vector3 velocity, moveDirection;
     private float verticalRotation, horizontalRotation;

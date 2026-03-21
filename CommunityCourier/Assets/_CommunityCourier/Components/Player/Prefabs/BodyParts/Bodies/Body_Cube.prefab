@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6756126332699531066}
   - component: {fileID: 4690473867507782408}
   m_Layer: 0
-  m_Name: Pivot_EyeR.004
+  m_Name: Pivot_EyeR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.6437664, y: 1.2963781, z: 0.87362653}
-  m_LocalScale: {x: 0.4830587, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8025405015136130121}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7838114940827756746}
   - component: {fileID: 4004820580363882771}
   m_Layer: 0
-  m_Name: Pivot_Mouth.004
+  m_Name: Pivot_Mouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 2238073657707759369}
   - component: {fileID: 389849033313579800}
   m_Layer: 0
-  m_Name: Pivot_Bag.004
+  m_Name: Pivot_Bag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 3548866471031165183}
   - component: {fileID: 3953889409470565606}
   m_Layer: 0
-  m_Name: Pivot_EyeL.004
+  m_Name: Pivot_EyeL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +277,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.6437664, y: 1.2963781, z: 0.87362653}
-  m_LocalScale: {x: 0.4830587, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8025405015136130121}
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 7065246524734277188}
   - component: {fileID: 1830082009372440667}
   m_Layer: 0
-  m_Name: Pivot_Legs.004
+  m_Name: Pivot_Legs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

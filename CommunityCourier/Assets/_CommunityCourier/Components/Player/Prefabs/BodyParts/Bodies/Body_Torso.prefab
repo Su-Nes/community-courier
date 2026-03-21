@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6849614423579318273}
   - component: {fileID: 1405951652561411963}
   m_Layer: 0
-  m_Name: Pivot_Legs.001
+  m_Name: Pivot_Legs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6571167421493556437}
   - component: {fileID: 1242291580465559374}
   m_Layer: 0
-  m_Name: Pivot_EyeL.001
+  m_Name: Pivot_EyeL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 8764647774910140891}
   - component: {fileID: 7373271636315300707}
   m_Layer: 0
-  m_Name: Pivot_EyeR.001
+  m_Name: Pivot_EyeR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 2822080455848676470}
   - component: {fileID: 8152541575085249345}
   m_Layer: 0
-  m_Name: Pivot_Mouth.001
+  m_Name: Pivot_Mouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 375539229551532684}
   - component: {fileID: 5640226104008272942}
   m_Layer: 0
-  m_Name: Pivot_Bag.001
+  m_Name: Pivot_Bag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
