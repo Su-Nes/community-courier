@@ -429,7 +429,7 @@ GameObject:
   - component: {fileID: 266931465}
   - component: {fileID: 266931466}
   m_Layer: 0
-  m_Name: StateMachine
+  m_Name: -StateMachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1124,7 +1124,7 @@ GameObject:
   - component: {fileID: 1263937613}
   - component: {fileID: 1263937614}
   m_Layer: 0
-  m_Name: InputManager
+  m_Name: -InputManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1268,7 +1268,7 @@ GameObject:
   - component: {fileID: 1576905256}
   - component: {fileID: 1576905258}
   m_Layer: 0
-  m_Name: NetworkManager
+  m_Name: -NetworkManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
