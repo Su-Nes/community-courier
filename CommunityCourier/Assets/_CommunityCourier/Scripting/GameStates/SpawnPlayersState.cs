@@ -15,6 +15,13 @@ public class SpawnPlayersState : StateNode
         if (!asServer)
             return;
 
+        SpawnPlayers();
+
+        //machine.Next();
+    }
+
+    private void SpawnPlayers()
+    {
         int currentSpawnIndex = 0;
         foreach (var player in networkManager.players)
         {
@@ -26,8 +33,6 @@ public class SpawnPlayersState : StateNode
             if (currentSpawnIndex >= spawnPoints.Count)
                 currentSpawnIndex = 0;
         }
-
-        //machine.Next();
     }
 
     public override void Exit()
