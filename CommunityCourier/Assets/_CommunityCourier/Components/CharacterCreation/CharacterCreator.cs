@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using PurrNet;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CharacterCreator : NetworkBehaviour
 {
@@ -18,9 +19,9 @@ public class CharacterCreator : NetworkBehaviour
         public GameObject[] leftEyes;
         public GameObject[] rightEyes;
         public GameObject[] mouths;
-        public Material mainMaterial;
-        public Material bagMaterial;
-        public Material altMaterial;
+        public Material[] mainMaterials;
+        public Material[] bagMaterials;
+        public Material[] altMaterials;
     }
     
     private SyncVar<int> bodyIndex = new();
@@ -36,12 +37,24 @@ public class CharacterCreator : NetworkBehaviour
 
         enabled = isOwner;
         
+        CreateRandomCharacter();
+    }
+
+    public void CreateRandomCharacter()
+    {
+        bodyIndex.value = Random.Range(0, characterParts.bodies.Length);
+        legIndex.value = Random.Range(0, characterParts.legs.Length);
+        bagIndex.value = Random.Range(0, characterParts.bags.Length);
+        leftEyeIndex.value = Random.Range(0, characterParts.leftEyes.Length);
+        rightEyeIndex.value = Random.Range(0, characterParts.rightEyes.Length);
+        mouthIndex.value = Random.Range(0, characterParts.mouths.Length);
+        
         BuildCharacter();
     }
 
     private void BuildCharacter()
     {
-        // destroy all children under player body transform
+        // destroy all children under player body transform. yea destroying everything every time one part changes is bad optimization but here it hopefully shouldn't matter
         foreach (Transform child in playerObject.BodyTransform)
         {
             Destroy(child.gameObject);
@@ -50,27 +63,28 @@ public class CharacterCreator : NetworkBehaviour
         // instantiate body of character
         Transform characterBody = Instantiate(characterParts.bodies[bodyIndex], playerObject.BodyTransform).transform;
         
+        // instantiate each body part on the body pivot points
+        Renderer[] legRenderer = Instantiate(characterParts.legs[legIndex], characterBody.Find("Pivot_Legs")).transform.GetComponentsInChildren<Renderer>();
+        Renderer bagRenderer = Instantiate(characterParts.bags[bagIndex], characterBody.Find("Pivot_Bag")).GetComponent<Renderer>();
+        Renderer leftEyeRenderer = Instantiate(characterParts.leftEyes[leftEyeIndex], characterBody.Find("Pivot_EyeL")).GetComponent<Renderer>();
+        Renderer rightEyeRenderer = Instantiate(characterParts.rightEyes[rightEyeIndex], characterBody.Find("Pivot_EyeR")).GetComponent<Renderer>();
+        Renderer mouthRenderer = Instantiate(characterParts.mouths[mouthIndex], characterBody.Find("Pivot_Mouth")).GetComponent<Renderer>();
+        
         // depending on leg index move the character body up so feet are on the ground
-        switch (legIndex)
+        characterBody.position = characterBody.Find("Pivot_Legs").position;
+        switch (legIndex) // this shit works bad but I can't be bothered rn
         {
             case 0:
-                characterBody.Translate(Vector3.up * characterParts.shortLegLength);
+                characterBody.Translate(-characterBody.up * characterParts.shortLegLength);
                 break;
             
             case 1:
-                characterBody.Translate(Vector3.up * characterParts.normalLegLength);
+                characterBody.Translate(-characterBody.up * characterParts.normalLegLength);
                 break;
             
             case 2:
-                characterBody.Translate(Vector3.up * characterParts.longLegLength);
+                characterBody.Translate(-characterBody.up * characterParts.longLegLength);
                 break;
         }
-        
-        // instantiate each body part
-        Instantiate(characterParts.legs[legIndex], characterBody.Find("Pivot_Legs"));
-        Instantiate(characterParts.bags[bagIndex], characterBody.Find("Pivot_Bag"));
-        Instantiate(characterParts.leftEyes[leftEyeIndex], characterBody.Find("Pivot_EyeL"));
-        Instantiate(characterParts.rightEyes[rightEyeIndex], characterBody.Find("Pivot_EyeR"));
-        Instantiate(characterParts.mouths[mouthIndex], characterBody.Find("Pivot_Mouth"));
     }
 }

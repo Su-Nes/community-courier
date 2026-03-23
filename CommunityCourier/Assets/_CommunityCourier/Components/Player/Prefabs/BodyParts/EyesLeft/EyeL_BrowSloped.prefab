@@ -96,7 +96,6 @@ GameObject:
   - component: {fileID: 5662346166453517857}
   - component: {fileID: 7533035298735284394}
   - component: {fileID: 3380360326692401284}
-  - component: {fileID: 336143576209515758}
   m_Layer: 0
   m_Name: EyeL_BrowSloped_Ball
   m_TagString: Untagged
@@ -169,18 +168,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &336143576209515758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6541087530997288319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73fa9e74a744fee4793f69dd16f3ccd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blinkRate: {x: 0, y: 0}
-  blinkDuration: 0.2
-  eyes: []
