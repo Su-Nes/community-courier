@@ -19,9 +19,9 @@ public class CharacterCreator : NetworkBehaviour
         public GameObject[] leftEyes;
         public GameObject[] rightEyes;
         public GameObject[] mouths;
-        public Material[] mainMaterials;
+        public Material[] bodyMaterials;
         public Material[] bagMaterials;
-        public Material[] altMaterials;
+        public Material[] accentMaterials;
     }
     
     private SyncVar<int> bodyIndex = new();
@@ -30,6 +30,9 @@ public class CharacterCreator : NetworkBehaviour
     private SyncVar<int> leftEyeIndex = new();
     private SyncVar<int> rightEyeIndex = new();
     private SyncVar<int> mouthIndex = new();
+    private SyncVar<int> bodyMaterialIndex = new();
+    private SyncVar<int> bagMaterialIndex = new();
+    private SyncVar<int> accentMaterialIndex = new();
     
     protected override void OnSpawned()
     {
@@ -48,6 +51,9 @@ public class CharacterCreator : NetworkBehaviour
         leftEyeIndex.value = Random.Range(0, characterParts.leftEyes.Length);
         rightEyeIndex.value = Random.Range(0, characterParts.rightEyes.Length);
         mouthIndex.value = Random.Range(0, characterParts.mouths.Length);
+        bodyMaterialIndex.value = Random.Range(0, characterParts.bodyMaterials.Length);
+        bagMaterialIndex.value = Random.Range(0, characterParts.bagMaterials.Length);
+        accentMaterialIndex.value = Random.Range(0, characterParts.accentMaterials.Length);
         
         BuildCharacter();
     }
@@ -62,13 +68,27 @@ public class CharacterCreator : NetworkBehaviour
         
         // instantiate body of character
         Transform characterBody = Instantiate(characterParts.bodies[bodyIndex], playerObject.BodyTransform).transform;
+        characterBody.GetComponent<Renderer>().material = characterParts.bodyMaterials[bodyMaterialIndex];
         
         // instantiate each body part on the body pivot points
         Renderer[] legRenderer = Instantiate(characterParts.legs[legIndex], characterBody.Find("Pivot_Legs")).transform.GetComponentsInChildren<Renderer>();
+        foreach(Renderer r in legRenderer) // assign materials to instantiated object
+            r.material = characterParts.accentMaterials[accentMaterialIndex];
+        
         Renderer bagRenderer = Instantiate(characterParts.bags[bagIndex], characterBody.Find("Pivot_Bag")).GetComponent<Renderer>();
+        bagRenderer.material = characterParts.bagMaterials[bagMaterialIndex];
+        
         Renderer leftEyeRenderer = Instantiate(characterParts.leftEyes[leftEyeIndex], characterBody.Find("Pivot_EyeL")).GetComponent<Renderer>();
+        if (leftEyeRenderer.transform.childCount > 0)
+            leftEyeRenderer.material = characterParts.accentMaterials[accentMaterialIndex];
+        
         Renderer rightEyeRenderer = Instantiate(characterParts.rightEyes[rightEyeIndex], characterBody.Find("Pivot_EyeR")).GetComponent<Renderer>();
+        if (rightEyeRenderer.transform.childCount > 0)
+            rightEyeRenderer.material = characterParts.accentMaterials[accentMaterialIndex];
+        
         Renderer mouthRenderer = Instantiate(characterParts.mouths[mouthIndex], characterBody.Find("Pivot_Mouth")).GetComponent<Renderer>();
+        if (mouthRenderer.materials.Length > 1) // this is only for the tongue mouth right now
+            mouthRenderer.materials[1] = characterParts.accentMaterials[accentMaterialIndex];
         
         // depending on leg index move the character body up so feet are on the ground
         characterBody.position = characterBody.Find("Pivot_Legs").position;
