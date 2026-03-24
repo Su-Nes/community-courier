@@ -76,7 +76,12 @@ public class CharacterCreator : NetworkBehaviour
             r.material = characterParts.accentMaterials[accentMaterialIndex];
         
         Renderer bagRenderer = Instantiate(characterParts.bags[bagIndex], characterBody.Find("Pivot_Bag")).GetComponent<Renderer>();
-        bagRenderer.material = characterParts.bagMaterials[bagMaterialIndex];
+        if (bagRenderer.transform.childCount > 0)
+        {
+            foreach (Renderer r in bagRenderer.transform.GetComponentsInChildren<Renderer>())
+                r.material = characterParts.bagMaterials[bagMaterialIndex];
+        }else
+            bagRenderer.material = characterParts.bagMaterials[bagMaterialIndex];
         
         Renderer leftEyeRenderer = Instantiate(characterParts.leftEyes[leftEyeIndex], characterBody.Find("Pivot_EyeL")).GetComponent<Renderer>();
         if (leftEyeRenderer.transform.childCount > 0)
