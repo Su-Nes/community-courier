@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using PurrNet;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class CharacterCreator : NetworkBehaviour
@@ -33,6 +35,22 @@ public class CharacterCreator : NetworkBehaviour
     private SyncVar<int> bodyMaterialIndex = new();
     private SyncVar<int> bagMaterialIndex = new();
     private SyncVar<int> accentMaterialIndex = new();
+
+    public enum Parts
+    {
+        Body,
+        Legs,
+        Bag,
+        EyeL,
+        EyeR,
+        Mouth,
+        BodyMaterial,
+        BagMaterial,
+        AccentMaterial
+    }
+
+    [SerializeField] private Button bodyButton, legButton, bagButton, eyeLButton, eyeRButton, mouthButton, bodyMatButton, bagMatButton, accentMatButton;
+    
     
     protected override void OnSpawned()
     {
@@ -40,7 +58,168 @@ public class CharacterCreator : NetworkBehaviour
 
         enabled = isOwner;
         
-        CreateRandomCharacter();
+        bodyButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Body, bodyButton.transform.GetComponentInChildren<TMP_Text>());});
+        bodyButton.onClick.Invoke();
+        legButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Legs, legButton.transform.GetComponentInChildren<TMP_Text>());});
+        legButton.onClick.Invoke();
+        bagButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Bag, bagButton.transform.GetComponentInChildren<TMP_Text>());});
+        bagButton.onClick.Invoke();
+        eyeLButton.onClick.AddListener(delegate {CycleBodyPart(Parts.EyeL, eyeLButton.transform.GetComponentInChildren<TMP_Text>());});
+        eyeLButton.onClick.Invoke();
+        eyeRButton.onClick.AddListener(delegate {CycleBodyPart(Parts.EyeR, eyeRButton.transform.GetComponentInChildren<TMP_Text>());});
+        eyeRButton.onClick.Invoke();
+        mouthButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Mouth, mouthButton.transform.GetComponentInChildren<TMP_Text>());});
+        mouthButton.onClick.Invoke();
+        bodyMatButton.onClick.AddListener(delegate {CycleBodyPart(Parts.BodyMaterial);});
+        bodyMatButton.onClick.Invoke();
+        bagMatButton.onClick.AddListener(delegate {CycleBodyPart(Parts.BagMaterial);});
+        bagButton.onClick.Invoke();
+        accentMatButton.onClick.AddListener(delegate {CycleBodyPart(Parts.AccentMaterial);});
+        accentMatButton.onClick.Invoke();
+        
+        BuildCharacter();
+    }
+    
+    public void CycleBodyPart(Parts part)
+    {
+        switch (part)
+        {
+            case Parts.Body:
+                bodyIndex.value++;
+                if (bodyIndex.value >= characterParts.bodies.Length)
+                    bodyIndex.value = 0;
+                break;
+            
+            case Parts.Legs:
+                legIndex.value++;
+                if (legIndex.value >= characterParts.legs.Length)
+                    legIndex.value = 0;
+                break;
+            
+            case Parts.Bag:
+                bagIndex.value++;
+                if (bagIndex.value >= characterParts.bags.Length)
+                    bagIndex.value = 0;
+                break;
+            
+            case Parts.EyeL:
+                leftEyeIndex.value++;
+                if (leftEyeIndex.value >= characterParts.leftEyes.Length)
+                    leftEyeIndex.value = 0;
+                break;
+            
+            case Parts.EyeR:
+                rightEyeIndex.value++;
+                if (rightEyeIndex.value >= characterParts.rightEyes.Length)
+                    rightEyeIndex.value = 0;
+                break;
+            
+            case Parts.Mouth:
+                mouthIndex.value++;
+                if (mouthIndex.value >= characterParts.mouths.Length)
+                    mouthIndex.value = 0;
+                break;
+            
+            case Parts.BodyMaterial:
+                bodyMaterialIndex.value++;
+                if (bodyMaterialIndex.value >= characterParts.bodyMaterials.Length)
+                    bodyMaterialIndex.value = 0;
+                break;
+            
+            case Parts.BagMaterial:
+                bagMaterialIndex.value++;
+                if (bagMaterialIndex.value >= characterParts.bagMaterials.Length)
+                    bagMaterialIndex.value = 0;
+                break;
+            
+            case Parts.AccentMaterial:
+                accentMaterialIndex.value++;
+                if (accentMaterialIndex.value >= characterParts.accentMaterials.Length)
+                    accentMaterialIndex.value = 0;
+                break;
+        }
+        
+        BuildCharacter();
+    }
+
+    public void CycleBodyPart(Parts part, TMP_Text buttonText)
+    {
+        switch (part)
+        {
+            case Parts.Body:
+                bodyIndex.value++;
+                if (bodyIndex.value >= characterParts.bodies.Length)
+                    bodyIndex.value = 0;
+                
+                buttonText.text = "Body: " + characterParts.bodies[bodyIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.Legs:
+                legIndex.value++;
+                if (legIndex.value >= characterParts.legs.Length)
+                    legIndex.value = 0;
+                
+                buttonText.text = "Legs: " + characterParts.legs[legIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.Bag:
+                bagIndex.value++;
+                if (bagIndex.value >= characterParts.bags.Length)
+                    bagIndex.value = 0;
+                
+                buttonText.text = "Bag: " + characterParts.bags[bagIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.EyeL:
+                leftEyeIndex.value++;
+                if (leftEyeIndex.value >= characterParts.leftEyes.Length)
+                    leftEyeIndex.value = 0;
+
+                buttonText.text = "Eye L: " + characterParts.leftEyes[leftEyeIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.EyeR:
+                rightEyeIndex.value++;
+                if (rightEyeIndex.value >= characterParts.rightEyes.Length)
+                    rightEyeIndex.value = 0;
+
+                buttonText.text = "Eye R: " + characterParts.rightEyes[rightEyeIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.Mouth:
+                mouthIndex.value++;
+                if (mouthIndex.value >= characterParts.mouths.Length)
+                    mouthIndex.value = 0;
+
+                buttonText.text = "Mouth: " + characterParts.mouths[mouthIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.BodyMaterial:
+                bodyMaterialIndex.value++;
+                if (bodyMaterialIndex.value >= characterParts.bodyMaterials.Length)
+                    bodyMaterialIndex.value = 0;
+
+                buttonText.text = "Body colour: " + characterParts.bodyMaterials[bodyMaterialIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.BagMaterial:
+                bagMaterialIndex.value++;
+                if (bagMaterialIndex.value >= characterParts.bagMaterials.Length)
+                    bagMaterialIndex.value = 0;
+
+                buttonText.text = "Bag colour: " + characterParts.bagMaterials[bagMaterialIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.AccentMaterial:
+                accentMaterialIndex.value++;
+                if (accentMaterialIndex.value >= characterParts.accentMaterials.Length)
+                    accentMaterialIndex.value = 0;
+
+                buttonText.text = "Accent colour: " + characterParts.accentMaterials[accentMaterialIndex.value].name.Split('_')[1];
+                break;
+        }
+        
+        BuildCharacter();
     }
 
     public void CreateRandomCharacter()
@@ -86,14 +265,38 @@ public class CharacterCreator : NetworkBehaviour
         Renderer leftEyeRenderer = Instantiate(characterParts.leftEyes[leftEyeIndex], characterBody.Find("Pivot_EyeL")).GetComponent<Renderer>();
         if (leftEyeRenderer.transform.childCount > 0)
             leftEyeRenderer.material = characterParts.accentMaterials[accentMaterialIndex];
+        else if (leftEyeRenderer.materials.Length > 1)
+        {
+            Material[] materials = new Material[characterParts.accentMaterials.Length];
+            materials[0] = leftEyeRenderer.materials[0];
+            materials[1] = characterParts.accentMaterials[accentMaterialIndex];
+            
+            leftEyeRenderer.materials = materials;
+        }
         
         Renderer rightEyeRenderer = Instantiate(characterParts.rightEyes[rightEyeIndex], characterBody.Find("Pivot_EyeR")).GetComponent<Renderer>();
         if (rightEyeRenderer.transform.childCount > 0)
             rightEyeRenderer.material = characterParts.accentMaterials[accentMaterialIndex];
+        else if (rightEyeRenderer.materials.Length > 1)
+        {
+            Material[] materials = new Material[characterParts.accentMaterials.Length];
+            materials[0] = rightEyeRenderer.materials[0];
+            materials[1] = characterParts.accentMaterials[accentMaterialIndex];
+            
+            rightEyeRenderer.materials = materials;
+
+        }
         
         Renderer mouthRenderer = Instantiate(characterParts.mouths[mouthIndex], characterBody.Find("Pivot_Mouth")).GetComponent<Renderer>();
         if (mouthRenderer.materials.Length > 1) // this is only for the tongue mouth right now
-            mouthRenderer.materials[1] = characterParts.accentMaterials[accentMaterialIndex];
+        {
+            Material[] materials = new Material[characterParts.accentMaterials.Length];
+            materials[0] = mouthRenderer.materials[0];
+            materials[1] = characterParts.accentMaterials[accentMaterialIndex];
+            
+            mouthRenderer.materials = materials;
+
+        }
         
         // depending on leg index move the character body up so feet are on the ground
         characterBody.position = characterBody.Find("Pivot_Legs").position;
