@@ -12,6 +12,8 @@ public class CharacterCreator : NetworkBehaviour
     [SerializeField] private PlayerController playerObject;
     [SerializeField] private CharacterParts characterParts;
     
+    public PlayerController PlayerObject => playerObject;
+    
     [Serializable] private class CharacterParts
     {
         public GameObject[] bodies;
@@ -59,23 +61,65 @@ public class CharacterCreator : NetworkBehaviour
         enabled = isOwner;
         
         bodyButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Body, bodyButton.transform.GetComponentInChildren<TMP_Text>());});
-        bodyButton.onClick.Invoke();
+        InitiateButton(Parts.Body, bodyButton.transform.GetComponentInChildren<TMP_Text>());
         legButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Legs, legButton.transform.GetComponentInChildren<TMP_Text>());});
-        legButton.onClick.Invoke();
+        InitiateButton(Parts.Legs, legButton.transform.GetComponentInChildren<TMP_Text>());
         bagButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Bag, bagButton.transform.GetComponentInChildren<TMP_Text>());});
-        bagButton.onClick.Invoke();
+        InitiateButton(Parts.Bag, bagButton.transform.GetComponentInChildren<TMP_Text>());
         eyeLButton.onClick.AddListener(delegate {CycleBodyPart(Parts.EyeL, eyeLButton.transform.GetComponentInChildren<TMP_Text>());});
-        eyeLButton.onClick.Invoke();
+        InitiateButton(Parts.EyeL, eyeLButton.transform.GetComponentInChildren<TMP_Text>());
         eyeRButton.onClick.AddListener(delegate {CycleBodyPart(Parts.EyeR, eyeRButton.transform.GetComponentInChildren<TMP_Text>());});
-        eyeRButton.onClick.Invoke();
+        InitiateButton(Parts.EyeR, eyeRButton.transform.GetComponentInChildren<TMP_Text>());
         mouthButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Mouth, mouthButton.transform.GetComponentInChildren<TMP_Text>());});
-        mouthButton.onClick.Invoke();
+        InitiateButton(Parts.Mouth, mouthButton.transform.GetComponentInChildren<TMP_Text>());
+        
         bodyMatButton.onClick.AddListener(delegate {CycleBodyPart(Parts.BodyMaterial);});
-        bodyMatButton.onClick.Invoke();
         bagMatButton.onClick.AddListener(delegate {CycleBodyPart(Parts.BagMaterial);});
-        bagButton.onClick.Invoke();
         accentMatButton.onClick.AddListener(delegate {CycleBodyPart(Parts.AccentMaterial);});
-        accentMatButton.onClick.Invoke();
+        
+        BuildCharacter();
+    }
+
+    private void InitiateButton(Parts part, TMP_Text buttonText)
+    {
+        switch (part)
+        {
+            case Parts.Body:
+                buttonText.text = "Body: " + characterParts.bodies[bodyIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.Legs:
+                buttonText.text = "Legs: " + characterParts.legs[legIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.Bag:
+                buttonText.text = "Bag: " + characterParts.bags[bagIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.EyeL:
+                buttonText.text = "Eye L: " + characterParts.leftEyes[leftEyeIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.EyeR:
+                buttonText.text = "Eye R: " + characterParts.rightEyes[rightEyeIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.Mouth:
+                buttonText.text = "Mouth: " + characterParts.mouths[mouthIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.BodyMaterial:
+                buttonText.text = "Body colour: " + characterParts.bodyMaterials[bodyMaterialIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.BagMaterial:
+                buttonText.text = "Bag colour: " + characterParts.bagMaterials[bagMaterialIndex.value].name.Split('_')[1];
+                break;
+            
+            case Parts.AccentMaterial:
+                buttonText.text = "Accent colour: " + characterParts.accentMaterials[accentMaterialIndex.value].name.Split('_')[1];
+                break;
+        }
         
         BuildCharacter();
     }
@@ -234,6 +278,13 @@ public class CharacterCreator : NetworkBehaviour
         bagMaterialIndex.value = Random.Range(0, characterParts.bagMaterials.Length);
         accentMaterialIndex.value = Random.Range(0, characterParts.accentMaterials.Length);
         
+        InitiateButton(Parts.Body, bodyButton.transform.GetComponentInChildren<TMP_Text>());
+        InitiateButton(Parts.Legs, legButton.transform.GetComponentInChildren<TMP_Text>());
+        InitiateButton(Parts.Bag, bagButton.transform.GetComponentInChildren<TMP_Text>());
+        InitiateButton(Parts.EyeL, eyeLButton.transform.GetComponentInChildren<TMP_Text>());
+        InitiateButton(Parts.EyeR, eyeRButton.transform.GetComponentInChildren<TMP_Text>());
+        InitiateButton(Parts.Mouth, mouthButton.transform.GetComponentInChildren<TMP_Text>());
+        
         BuildCharacter();
     }
 
@@ -314,5 +365,11 @@ public class CharacterCreator : NetworkBehaviour
                 characterBody.Translate(-characterBody.up * characterParts.longLegLength);
                 break;
         }
+    }
+
+    public void FinishCharacterCreation()
+    {
+        playerObject.transform.Find("Pivot_Camera").GetComponentInChildren<Camera>().gameObject.SetActive(true);
+        
     }
 }
