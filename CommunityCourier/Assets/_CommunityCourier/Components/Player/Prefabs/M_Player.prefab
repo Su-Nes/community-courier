@@ -264,7 +264,7 @@ MonoBehaviour:
   gravity: -9.81
   groundCheckDistance: 0.2
   lookSensitivity: 0.2
-  maxLookAngle: 80
+  maxLookAngle: 60
   bodyLookAtScript: {fileID: 5201748849049658285}
   cameraPivot: {fileID: 8915894573369704038}
   bodyTf: {fileID: 245440469523205463}

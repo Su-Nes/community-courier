@@ -60,17 +60,17 @@ public class CharacterCreator : NetworkBehaviour
 
         enabled = isOwner;
         
-        bodyButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Body, bodyButton.transform.GetComponentInChildren<TMP_Text>());});
+        bodyButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Body);});
         InitiateButton(Parts.Body, bodyButton.transform.GetComponentInChildren<TMP_Text>());
-        legButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Legs, legButton.transform.GetComponentInChildren<TMP_Text>());});
+        legButton.onClick.AddListener(delegate { CycleBodyPart(Parts.Legs);});
         InitiateButton(Parts.Legs, legButton.transform.GetComponentInChildren<TMP_Text>());
-        bagButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Bag, bagButton.transform.GetComponentInChildren<TMP_Text>());});
+        bagButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Bag);});
         InitiateButton(Parts.Bag, bagButton.transform.GetComponentInChildren<TMP_Text>());
-        eyeLButton.onClick.AddListener(delegate {CycleBodyPart(Parts.EyeL, eyeLButton.transform.GetComponentInChildren<TMP_Text>());});
+        eyeLButton.onClick.AddListener(delegate {CycleBodyPart(Parts.EyeL);});
         InitiateButton(Parts.EyeL, eyeLButton.transform.GetComponentInChildren<TMP_Text>());
-        eyeRButton.onClick.AddListener(delegate {CycleBodyPart(Parts.EyeR, eyeRButton.transform.GetComponentInChildren<TMP_Text>());});
+        eyeRButton.onClick.AddListener(delegate {CycleBodyPart(Parts.EyeR);});
         InitiateButton(Parts.EyeR, eyeRButton.transform.GetComponentInChildren<TMP_Text>());
-        mouthButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Mouth, mouthButton.transform.GetComponentInChildren<TMP_Text>());});
+        mouthButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Mouth);});
         InitiateButton(Parts.Mouth, mouthButton.transform.GetComponentInChildren<TMP_Text>());
         
         bodyMatButton.onClick.AddListener(delegate {CycleBodyPart(Parts.BodyMaterial);});
@@ -124,6 +124,7 @@ public class CharacterCreator : NetworkBehaviour
         BuildCharacter();
     }
     
+
     [ServerRpc(requireOwnership:false)]
     public void CycleBodyPart(Parts part)
     {
@@ -133,36 +134,48 @@ public class CharacterCreator : NetworkBehaviour
                 bodyIndex.value++;
                 if (bodyIndex.value >= characterParts.bodies.Length)
                     bodyIndex.value = 0;
+                
+                bodyButton.transform.GetComponentInChildren<TMP_Text>().text = "Body: " + characterParts.bodies[bodyIndex.value].name.Split('_')[1];
                 break;
             
             case Parts.Legs:
                 legIndex.value++;
                 if (legIndex.value >= characterParts.legs.Length)
                     legIndex.value = 0;
+                
+                legButton.transform.GetComponentInChildren<TMP_Text>().text = "Legs: " + characterParts.legs[legIndex.value].name.Split('_')[1];
                 break;
             
             case Parts.Bag:
                 bagIndex.value++;
                 if (bagIndex.value >= characterParts.bags.Length)
                     bagIndex.value = 0;
+                
+                bagButton.transform.GetComponentInChildren<TMP_Text>().text = "Bag: " + characterParts.bags[bagIndex.value].name.Split('_')[1];
                 break;
             
             case Parts.EyeL:
                 leftEyeIndex.value++;
                 if (leftEyeIndex.value >= characterParts.leftEyes.Length)
                     leftEyeIndex.value = 0;
+
+                eyeLButton.transform.GetComponentInChildren<TMP_Text>().text = "Eye L: " + characterParts.leftEyes[leftEyeIndex.value].name.Split('_')[1];
                 break;
             
             case Parts.EyeR:
                 rightEyeIndex.value++;
                 if (rightEyeIndex.value >= characterParts.rightEyes.Length)
                     rightEyeIndex.value = 0;
+
+                eyeRButton.transform.GetComponentInChildren<TMP_Text>().text = "Eye R: " + characterParts.rightEyes[rightEyeIndex.value].name.Split('_')[1];
                 break;
             
             case Parts.Mouth:
                 mouthIndex.value++;
                 if (mouthIndex.value >= characterParts.mouths.Length)
                     mouthIndex.value = 0;
+
+                mouthButton.transform.GetComponentInChildren<TMP_Text>().text = "Mouth: " + characterParts.mouths[mouthIndex.value].name.Split('_')[1];
                 break;
             
             case Parts.BodyMaterial:
@@ -181,87 +194,6 @@ public class CharacterCreator : NetworkBehaviour
                 accentMaterialIndex.value++;
                 if (accentMaterialIndex.value >= characterParts.accentMaterials.Length)
                     accentMaterialIndex.value = 0;
-                break;
-        }
-        
-        BuildCharacter();
-    }
-
-    [ServerRpc(requireOwnership:false)]
-    public void CycleBodyPart(Parts part, TMP_Text buttonText)
-    {
-        switch (part)
-        {
-            case Parts.Body:
-                bodyIndex.value++;
-                if (bodyIndex.value >= characterParts.bodies.Length)
-                    bodyIndex.value = 0;
-                
-                buttonText.text = "Body: " + characterParts.bodies[bodyIndex.value].name.Split('_')[1];
-                break;
-            
-            case Parts.Legs:
-                legIndex.value++;
-                if (legIndex.value >= characterParts.legs.Length)
-                    legIndex.value = 0;
-                
-                buttonText.text = "Legs: " + characterParts.legs[legIndex.value].name.Split('_')[1];
-                break;
-            
-            case Parts.Bag:
-                bagIndex.value++;
-                if (bagIndex.value >= characterParts.bags.Length)
-                    bagIndex.value = 0;
-                
-                buttonText.text = "Bag: " + characterParts.bags[bagIndex.value].name.Split('_')[1];
-                break;
-            
-            case Parts.EyeL:
-                leftEyeIndex.value++;
-                if (leftEyeIndex.value >= characterParts.leftEyes.Length)
-                    leftEyeIndex.value = 0;
-
-                buttonText.text = "Eye L: " + characterParts.leftEyes[leftEyeIndex.value].name.Split('_')[1];
-                break;
-            
-            case Parts.EyeR:
-                rightEyeIndex.value++;
-                if (rightEyeIndex.value >= characterParts.rightEyes.Length)
-                    rightEyeIndex.value = 0;
-
-                buttonText.text = "Eye R: " + characterParts.rightEyes[rightEyeIndex.value].name.Split('_')[1];
-                break;
-            
-            case Parts.Mouth:
-                mouthIndex.value++;
-                if (mouthIndex.value >= characterParts.mouths.Length)
-                    mouthIndex.value = 0;
-
-                buttonText.text = "Mouth: " + characterParts.mouths[mouthIndex.value].name.Split('_')[1];
-                break;
-            
-            case Parts.BodyMaterial:
-                bodyMaterialIndex.value++;
-                if (bodyMaterialIndex.value >= characterParts.bodyMaterials.Length)
-                    bodyMaterialIndex.value = 0;
-
-                buttonText.text = "Body colour: " + characterParts.bodyMaterials[bodyMaterialIndex.value].name.Split('_')[1];
-                break;
-            
-            case Parts.BagMaterial:
-                bagMaterialIndex.value++;
-                if (bagMaterialIndex.value >= characterParts.bagMaterials.Length)
-                    bagMaterialIndex.value = 0;
-
-                buttonText.text = "Bag colour: " + characterParts.bagMaterials[bagMaterialIndex.value].name.Split('_')[1];
-                break;
-            
-            case Parts.AccentMaterial:
-                accentMaterialIndex.value++;
-                if (accentMaterialIndex.value >= characterParts.accentMaterials.Length)
-                    accentMaterialIndex.value = 0;
-
-                buttonText.text = "Accent colour: " + characterParts.accentMaterials[accentMaterialIndex.value].name.Split('_')[1];
                 break;
         }
         

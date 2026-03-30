@@ -13,6 +13,9 @@ public class SpawnPlayerInWorld : StateNode
     {
         base.Enter();
 
+        enabled = isOwner;
+            
+
         StartCoroutine(SpawnInRandomScene());
     }
 
@@ -21,7 +24,7 @@ public class SpawnPlayerInWorld : StateNode
         SceneLoadManager.instance.LoadRandomIsland();
         
         yield return new WaitForSeconds(sceneLoadBuffer);
-print(SceneManager.GetActiveScene().GetRootGameObjects()[0].name);
+
         player.transform.position = SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.position +
                                     Vector3.up * spawnDistanceFromGround;
         

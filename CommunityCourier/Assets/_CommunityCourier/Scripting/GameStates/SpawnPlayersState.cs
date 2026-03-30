@@ -7,12 +7,13 @@ using UnityEngine;
 public class SpawnPlayersState : StateNode
 {
     [SerializeField] private StateMachine playerStateMachine;
+    private StateMachine playerInstance;
 
     public override void Enter(bool asServer)
     {
         base.Enter();
 
-        if (!asServer)
+        if (playerInstance != null || !asServer)
             return;
         
         SpawnPlayers();
@@ -20,14 +21,8 @@ public class SpawnPlayersState : StateNode
 
     private void SpawnPlayers()
     {
-        int currentSpawnIndex = 0;
-        foreach (var player in networkManager.players)
-        {
-            var spawnPoint = Vector3.forward * 100f * currentSpawnIndex; // space out the players
-            var newPlayer = Instantiate(playerStateMachine, spawnPoint, Quaternion.identity);
-            newPlayer.GiveOwnership(player);
-            currentSpawnIndex++;
-        }
+        playerInstance = Instantiate(playerStateMachine, transform);
+        playerInstance.GiveOwnership(networkManager.localPlayer);
     }
 
     public override void Exit()

@@ -11,14 +11,18 @@ public class CharacterCreationState : StateNode
 
     [SerializeField] private SpawnPlayerInWorld spawnStateNode;
 
-    public override void Enter(bool asServer)
+    public override void Enter()
     {
-        base.Enter(asServer);
+        base.Enter();
+
+        if (!machine.isOwner)
+            return;
 
         if (characterCreatorInstance != null)
             return;
+        
         characterCreatorInstance = Instantiate(characterCreatorPrefab, transform);
-        characterCreatorInstance.GiveOwnership(owner);
+        characterCreatorInstance.GiveOwnership(networkManager.localPlayer);
     }
 
     public override void Exit(bool asServer)
