@@ -695,7 +695,10 @@ MonoBehaviour:
   _directChildren: []
   _networkRules: {fileID: 0}
   _visitiblityRules: {fileID: 0}
-  startUI: {fileID: 741169422094224019, guid: 95d4bde5556ab3143a8bb8ba948d44ed, type: 3}
+  startUIAdmin: {fileID: 741169422094224019, guid: 95d4bde5556ab3143a8bb8ba948d44ed,
+    type: 3}
+  startUIClient: {fileID: 741169422094224019, guid: 4c53137c4a1cd644ab0c3fe7ebfeab4b,
+    type: 3}
 --- !u!1 &1845616108
 GameObject:
   m_ObjectHideFlags: 0

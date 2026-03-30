@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PurrNet;
 using UnityEngine;
 
-public class CameraPivotRotate : MonoBehaviour
+public class CameraPivotRotate : NetworkBehaviour
 {
     [SerializeField] private float sensitivity, smoothingLerp, maxLookAngle;
     
@@ -11,6 +12,13 @@ public class CameraPivotRotate : MonoBehaviour
     
     private Quaternion targetRotation;
 
+
+    protected override void OnSpawned()
+    {
+        base.OnSpawned();
+
+        enabled = isOwner;
+    }
 
     public void HandleRotation()
     {

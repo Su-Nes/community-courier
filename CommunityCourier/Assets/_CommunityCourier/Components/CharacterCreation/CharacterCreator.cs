@@ -124,6 +124,7 @@ public class CharacterCreator : NetworkBehaviour
         BuildCharacter();
     }
     
+    [ServerRpc(requireOwnership:false)]
     public void CycleBodyPart(Parts part)
     {
         switch (part)
@@ -186,6 +187,7 @@ public class CharacterCreator : NetworkBehaviour
         BuildCharacter();
     }
 
+    [ServerRpc(requireOwnership:false)]
     public void CycleBodyPart(Parts part, TMP_Text buttonText)
     {
         switch (part)
@@ -266,6 +268,7 @@ public class CharacterCreator : NetworkBehaviour
         BuildCharacter();
     }
 
+    [ServerRpc(requireOwnership:false)]
     public void CreateRandomCharacter()
     {
         bodyIndex.value = Random.Range(0, characterParts.bodies.Length);
