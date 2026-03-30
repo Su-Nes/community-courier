@@ -14,10 +14,8 @@ public class SpawnPlayersState : StateNode
 
         if (!asServer)
             return;
-
+        
         SpawnPlayers();
-
-        //machine.Next();
     }
 
     private void SpawnPlayers()

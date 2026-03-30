@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +7,8 @@ public class SceneLoadManager : MonoBehaviour
 {
     public static SceneLoadManager instance;
 
+    [SerializeField] private int[] islandIndexes;
+
     private void Awake()
     {
         if (instance == null)
@@ -16,13 +17,19 @@ public class SceneLoadManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void LoadScene(int sceneIndex)
-    {
-        SceneManager.LoadScene(sceneIndex, LoadSceneMode.Additive);
-    }
-
     public void UnloadScene(int sceneIndex)
     {
         SceneManager.UnloadSceneAsync(sceneIndex);
+    }
+
+    public void LoadRandomIsland()
+    {
+        StartCoroutine(LoadScene(islandIndexes[Random.Range(0, islandIndexes.Length)]));
+    }
+
+    private IEnumerator LoadScene(int sceneIndex)
+    {
+        yield return SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneIndex));
     }
 }

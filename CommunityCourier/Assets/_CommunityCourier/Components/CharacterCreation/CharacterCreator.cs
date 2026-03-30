@@ -77,7 +77,7 @@ public class CharacterCreator : NetworkBehaviour
         bagMatButton.onClick.AddListener(delegate {CycleBodyPart(Parts.BagMaterial);});
         accentMatButton.onClick.AddListener(delegate {CycleBodyPart(Parts.AccentMaterial);});
         
-        BuildCharacter();
+        CreateRandomCharacter();
     }
 
     private void InitiateButton(Parts part, TMP_Text buttonText)
@@ -369,7 +369,6 @@ public class CharacterCreator : NetworkBehaviour
 
     public void FinishCharacterCreation()
     {
-        playerObject.transform.Find("Pivot_Camera").GetComponentInChildren<Camera>().gameObject.SetActive(true);
-        
+        transform.parent.GetComponent<CharacterCreationState>().CharacterComplete();
     }
 }

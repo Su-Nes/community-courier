@@ -20,8 +20,10 @@ public class PlayerController : NetworkBehaviour
     [Header("References")] 
     [SerializeField] private LookAtTransform bodyLookAtScript;
     [SerializeField] private Transform cameraPivot, bodyTf;
+    private Camera playerCamera;
     
     public Transform BodyTransform => bodyTf;
+    public Camera PlayerCamera => playerCamera;
     
     private CharacterController characterController;
     private Vector3 velocity, moveDirection;
@@ -33,6 +35,8 @@ public class PlayerController : NetworkBehaviour
         base.OnSpawned();
 
         enabled = isOwner;
+        
+        playerCamera = cameraPivot.GetChild(0).GetComponent<Camera>();
         
         if (!isOwner)
             Destroy(cameraPivot.gameObject);
@@ -46,9 +50,9 @@ public class PlayerController : NetworkBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         characterController = GetComponent<CharacterController>();
+        
+        SetActivity(controllerActive);
 
         if (cameraPivot == null)
             enabled = false;
@@ -67,6 +71,9 @@ public class PlayerController : NetworkBehaviour
     public void SetActivity(bool state)
     {
         controllerActive = state;
+        
+        Cursor.lockState = controllerActive ? CursorLockMode.Locked :  CursorLockMode.None;
+        Cursor.visible = !controllerActive;
     }
 
     private void HandleMovement()
@@ -114,7 +121,7 @@ public class PlayerController : NetworkBehaviour
         Vector3 lookVector = transform.position + moveDirection * 99f;
         
         if (moveDirection != Vector3.zero)
-            bodyLookAtScript.LookAtPosition(lookVector);
+            bodyLookAtScript.LookAtPosition(-lookVector);
     }
 
     private bool IsGrounded()
