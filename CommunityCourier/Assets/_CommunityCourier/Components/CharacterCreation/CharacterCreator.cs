@@ -200,7 +200,6 @@ public class CharacterCreator : NetworkBehaviour
         BuildCharacter();
     }
 
-    [ServerRpc(requireOwnership:false)]
     public void CreateRandomCharacter()
     {
         bodyIndex.value = Random.Range(0, characterParts.bodies.Length);
