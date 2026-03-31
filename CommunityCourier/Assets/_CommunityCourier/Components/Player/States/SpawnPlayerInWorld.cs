@@ -22,13 +22,14 @@ public class SpawnPlayerInWorld : StateNode
     private IEnumerator SpawnInRandomScene()
     {
         SceneLoadManager.instance.LoadRandomIsland();
-        
-        yield return new WaitForSeconds(sceneLoadBuffer);
-        print(SceneManager.GetActiveScene().name);
-        player.transform.position = SceneManager.GetActiveScene().GetRootGameObjects()[0].transform.position +
-                                    Vector3.up * spawnDistanceFromGround;
-        
         player.GiveOwnership(machine.owner);
         player.SetActivity(true);
+        
+        yield return new WaitForSeconds(sceneLoadBuffer);
+        Vector3 spawnPos = FindFirstObjectByType<IslandArrivalPoint>().transform.position +
+                           Vector3.up * spawnDistanceFromGround;
+        
+        print(spawnPos);
+        player.transform.position.Set(spawnPos.x, spawnPos.y, spawnPos.z);
     }
 }

@@ -55,7 +55,7 @@ MonoBehaviour:
   _visitiblityRules: {fileID: 0}
   player: {fileID: 0}
   spawnDistanceFromGround: 30
-  sceneLoadBuffer: 0.5
+  sceneLoadBuffer: 3
 --- !u!1 &5539552509917490845
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,6 +26,7 @@ public class SpawnPlayersState : StateNode
         {
             playerInstance = Instantiate(playerStateMachine, Vector3.right * playerIndex * 100f, Quaternion.identity);
             playerInstance.GiveOwnership(player);
+            playerInstance.gameObject.name = $"Player {player.id}";
             playerIndex++;
         }
     }
