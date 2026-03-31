@@ -21,8 +21,13 @@ public class SpawnPlayersState : StateNode
 
     private void SpawnPlayers()
     {
-        playerInstance = Instantiate(playerStateMachine, transform);
-        playerInstance.GiveOwnership(networkManager.localPlayer);
+        int playerIndex = 0;
+        foreach (var player in networkManager.players)
+        {
+            playerInstance = Instantiate(playerStateMachine, Vector3.right * playerIndex * 100f, Quaternion.identity);
+            playerInstance.GiveOwnership(player);
+            playerIndex++;
+        }
     }
 
     public override void Exit()

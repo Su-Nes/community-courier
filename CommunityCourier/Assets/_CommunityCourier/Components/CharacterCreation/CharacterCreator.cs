@@ -28,15 +28,15 @@ public class CharacterCreator : NetworkBehaviour
         public Material[] accentMaterials;
     }
     
-    private SyncVar<int> bodyIndex = new();
-    private SyncVar<int> legIndex = new();
-    private SyncVar<int> bagIndex = new();
-    private SyncVar<int> leftEyeIndex = new();
-    private SyncVar<int> rightEyeIndex = new();
-    private SyncVar<int> mouthIndex = new();
-    private SyncVar<int> bodyMaterialIndex = new();
-    private SyncVar<int> bagMaterialIndex = new();
-    private SyncVar<int> accentMaterialIndex = new();
+    private SyncVar<int> bodyIndex = new(0, ownerAuth: true);
+    private SyncVar<int> legIndex = new(0, ownerAuth: true);
+    private SyncVar<int> bagIndex = new(0, ownerAuth: true);
+    private SyncVar<int> leftEyeIndex = new(0, ownerAuth: true);
+    private SyncVar<int> rightEyeIndex = new(0, ownerAuth: true);
+    private SyncVar<int> mouthIndex = new(0, ownerAuth: true);
+    private SyncVar<int> bodyMaterialIndex = new(0, ownerAuth: true);
+    private SyncVar<int> bagMaterialIndex = new(0, ownerAuth: true);
+    private SyncVar<int> accentMaterialIndex = new(0, ownerAuth: true);
 
     public enum Parts
     {
@@ -58,7 +58,8 @@ public class CharacterCreator : NetworkBehaviour
     {
         base.OnSpawned();
 
-        enabled = isOwner;
+        if (!isOwner)
+            return;
         
         bodyButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Body);});
         InitiateButton(Parts.Body, bodyButton.transform.GetComponentInChildren<TMP_Text>());
@@ -124,8 +125,7 @@ public class CharacterCreator : NetworkBehaviour
         BuildCharacter();
     }
     
-
-    [ServerRpc(requireOwnership:false)]
+    
     public void CycleBodyPart(Parts part)
     {
         switch (part)

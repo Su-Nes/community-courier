@@ -22,7 +22,7 @@ public class CharacterCreationState : StateNode
             return;
         
         characterCreatorInstance = Instantiate(characterCreatorPrefab, transform);
-        characterCreatorInstance.GiveOwnership(networkManager.localPlayer);
+        characterCreatorInstance.GiveOwnership(transform.parent.GetComponent<StateMachine>().owner);
     }
 
     public override void Exit(bool asServer)

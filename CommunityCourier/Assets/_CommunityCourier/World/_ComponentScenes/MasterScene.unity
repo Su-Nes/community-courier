@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51ea5fd710b2c048a0a3fc1b7cd458a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  islandIndexes: 0100000002000000
+  islandIndexes: 01000000
 --- !u!1 &266931464
 GameObject:
   m_ObjectHideFlags: 0
