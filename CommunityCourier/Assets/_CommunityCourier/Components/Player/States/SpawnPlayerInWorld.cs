@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PurrNet;
 using PurrNet.StateMachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,15 +24,17 @@ public class SpawnPlayerInWorld : StateNode
     {
         SceneLoadManager.instance.LoadRandomIsland();
         player.GiveOwnership(machine.owner);
-        player.SetActivity(true);
 
         yield return new WaitForSeconds(sceneLoadBuffer);
         Vector3 spawnPos = FindFirstObjectByType<IslandArrivalPoint>().transform.position +
                            Vector3.up * spawnDistanceFromGround;
         
-        for (int i = 0; i < 50; i++) // this is so stupid that I have to do this. maybe it's a problem with the network transform?
+        for (int i = 0; i < 60; i++) // it's so stupid that I have to do this. maybe it's a problem with the network transform?
         {
             player.transform.position = spawnPos;
+            yield return null;
         }
+        
+        player.SetActivity(true);
     }
 }
