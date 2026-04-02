@@ -18,18 +18,8 @@ public class CharacterBuilder : NetworkBehaviour
     public Material[] bagMaterials;
     public Material[] accentMaterials;
     
-    private SyncVar<int> bodyIndex = new(0, ownerAuth: true);
-    private SyncVar<int> legIndex = new(0, ownerAuth: true);
-    private SyncVar<int> bagIndex = new(0, ownerAuth: true);
-    private SyncVar<int> leftEyeIndex = new(0, ownerAuth: true);
-    private SyncVar<int> rightEyeIndex = new(0, ownerAuth: true);
-    private SyncVar<int> mouthIndex = new(0, ownerAuth: true);
-    private SyncVar<int> bodyMaterialIndex = new(0, ownerAuth: true);
-    private SyncVar<int> bagMaterialIndex = new(0, ownerAuth: true);
-    private SyncVar<int> accentMaterialIndex = new(0, ownerAuth: true);
     
-    
-    public void BuildCharacter()
+    public void BuildCharacter(int bodyIndex, int legIndex, int bagIndex, int leftEyeIndex, int rightEyeIndex, int mouthIndex, int bodyMaterialIndex, int bagMaterialIndex, int accentMaterialIndex)
     {
         // destroy all children under player body transform. yea destroying everything every time one part changes is bad optimization but here it hopefully shouldn't matter
         foreach (Transform child in transform)

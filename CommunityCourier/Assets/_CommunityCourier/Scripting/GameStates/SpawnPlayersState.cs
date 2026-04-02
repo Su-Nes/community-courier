@@ -13,7 +13,7 @@ public class SpawnPlayersState : StateNode
     {
         base.Enter();
 
-        if (playerInstance != null || !asServer)
+        if (!asServer)
             return;
         
         SpawnPlayers();
@@ -24,7 +24,7 @@ public class SpawnPlayersState : StateNode
         int playerIndex = 0;
         foreach (var player in networkManager.players)
         {
-            playerInstance = Instantiate(playerStateMachine, Vector3.right * playerIndex * 100f, Quaternion.identity);
+            playerInstance = Instantiate(playerStateMachine, Vector3.right * playerIndex * 100f + Vector3.up * 100f, Quaternion.identity);
             playerInstance.GiveOwnership(player);
             playerInstance.gameObject.name = $"Player {player.id}";
             playerIndex++;
