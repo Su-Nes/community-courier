@@ -211,7 +211,7 @@ MonoBehaviour:
   - {fileID: 6926192187574926510, guid: 146e78131cd641d45b98b9200f5d8d6b, type: 3}
   shortLegLength: 0.35
   normalLegLength: 0.7
-  longLegLength: 1.05
+  longLegLength: 0.8
   bags:
   - {fileID: 4679202433716952021, guid: aaaf616c328e4804fbe212dd7f363cf2, type: 3}
   - {fileID: 5868138283900267627, guid: 9cc837c60dbc83242a56e3d3dcf1d754, type: 3}
@@ -283,7 +283,6 @@ MonoBehaviour:
   _directChildren: []
   _networkRules: {fileID: 0}
   _visitiblityRules: {fileID: 0}
-  playerController: {fileID: 3392777906161890258}
   animSpeed: 6
   bodyVerticalAmplitude: 0
   bagVerticalAmplitude: 0
