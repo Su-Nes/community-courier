@@ -27,6 +27,7 @@ public class PlayerController : NetworkBehaviour
     
     private CharacterController characterController;
     private Vector3 velocity, moveDirection;
+    public Vector3 MoveDirection => moveDirection;
     private float verticalRotation, horizontalRotation;
     private bool controllerActive;
 
