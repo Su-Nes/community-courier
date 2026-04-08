@@ -144,7 +144,7 @@ MonoBehaviour:
   _directChildren: []
   _networkRules: {fileID: 0}
   _visitiblityRules: {fileID: 0}
-  startUI: {fileID: 0}
+  startUI: {fileID: 741169422094224019, guid: 617eeb754f6f962489e439af73306ba2, type: 3}
 --- !u!1 &4636380195697037544
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +288,7 @@ MonoBehaviour:
   _visitiblityRules: {fileID: 0}
   _ownerAuth: 1
   _states:
-  - {fileID: 0}
+  - {fileID: 3446937615596885569}
   - {fileID: 547893671304215587}
   - {fileID: 6303120390234364801}
   - {fileID: 2722235850319571053}
