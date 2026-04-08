@@ -236,6 +236,12 @@ public class CharacterCreator : NetworkBehaviour
     public void FinishCharacterCreation()
     {
         BuildAllOtherPlayerCharacters();
+
+        PlayerData newPlayer = new();
+        newPlayer.SetPlayerID(owner.GetValueOrDefault());
+        newPlayer.SetCharacterBuildData(bodyIndex.value, legIndex.value, bagIndex.value, leftEyeIndex.value, rightEyeIndex.value, mouthIndex.value, bodyMaterialIndex.value, bagMaterialIndex.value, accentMaterialIndex.value);
+        
+        ConnectedPlayerManager.instance.AddPlayer(newPlayer);
         transform.parent.GetComponent<CharacterCreationState>().CharacterComplete();
     }
 }

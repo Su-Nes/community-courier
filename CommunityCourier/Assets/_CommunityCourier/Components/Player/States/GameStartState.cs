@@ -1,0 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
+using PurrNet.StateMachine;
+using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
+
+public class GameStartState : StateNode
+{
+    [SerializeField] private GameObject startUI;
+    private GameObject uiInstance;
+
+    public override void Enter()
+    {
+        base.Enter();
+
+        if (isServer)
+            return;
+        
+        uiInstance = Instantiate(startUI);
+        if (uiInstance.transform.Find("Button_Start") != null)
+            uiInstance.transform.Find("Button_Start").GetComponent<Button>().onClick.AddListener(StartGame);
+        else 
+            Debug.LogError("Missing 'Button_Start' on Start UI prefab!");
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        
+        Destroy(uiInstance);
+    }
+
+    private void StartGame()
+    {
+        machine.Next();
+    }
+}

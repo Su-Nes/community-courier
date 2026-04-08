@@ -4,7 +4,7 @@ using PurrNet;
 using PurrNet.StateMachine;
 using UnityEngine;
 
-public class SpawnPlayersState : StateNode
+public class SpawnPlayerState : StateNode
 {
     [SerializeField] private StateMachine playerStateMachine;
     private StateMachine playerInstance;
@@ -16,10 +16,10 @@ public class SpawnPlayersState : StateNode
         if (!asServer)
             return;
         
-        SpawnPlayers();
+        SpawnPlayer();
     }
 
-    private void SpawnPlayers()
+    private void SpawnPlayer()
     {
         int playerIndex = 0;
         foreach (var player in networkManager.players)
@@ -29,6 +29,8 @@ public class SpawnPlayersState : StateNode
             playerInstance.gameObject.name = $"Player {player.id}";
             playerIndex++;
         }
+
+        machine.Next();
     }
 
     public override void Exit()

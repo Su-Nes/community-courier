@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class CharacterBuilder : NetworkBehaviour
 {
-    
     public GameObject[] bodies;
     public GameObject[] legs;
     public float shortLegLength, normalLegLength, longLegLength;
@@ -66,7 +65,6 @@ public class CharacterBuilder : NetworkBehaviour
             materials[1] = accentMaterials[accentMaterialIndex];
             
             rightEyeRenderer.materials = materials;
-
         }
         
         Renderer mouthRenderer = Instantiate(mouths[mouthIndex], characterBody.Find("Pivot_Mouth")).GetComponent<Renderer>();
