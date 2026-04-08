@@ -33,13 +33,11 @@ public class GameStartState : StateNode
     {
         base.Exit(asServer);
         
-        if (!asServer)
-            Destroy(uiInstance);
+        Destroy(uiInstance);
     }
 
-    public void StartGame()
+    private void StartGame()
     {
-        Destroy(uiInstance);
         machine.Next();
     }
 }

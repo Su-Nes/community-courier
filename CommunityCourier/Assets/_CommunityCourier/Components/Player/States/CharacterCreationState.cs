@@ -22,16 +22,14 @@ public class CharacterCreationState : StateNode
             return;
         
         characterCreatorInstance = Instantiate(characterCreatorPrefab, transform);
-        characterCreatorInstance.GiveOwnership(transform.parent.GetComponent<StateMachine>().owner);
+        characterCreatorInstance.GiveOwnership(machine.owner);
     }
 
     public void CharacterComplete()
     {
         characterCreatorInstance.PlayerObject.PlayerCamera.gameObject.SetActive(true);
         characterCreatorInstance.PlayerObject.transform.SetParent(transform.parent); // yoink the player object out of the character creation prefab 
-        characterCreatorInstance.PlayerObject.BodyTransform.GetComponent<CharacterAnimator>().GiveOwnership(transform.parent.GetComponent<StateMachine>().owner);
-        /*characterCreatorInstance.PlayerObject.BodyTransform.GetComponent<CharacterAnimator>().AssignBodyParts();
-        */
+        characterCreatorInstance.PlayerObject.BodyTransform.GetComponent<CharacterAnimator>().GiveOwnership(machine.owner);
         
         spawnStateNode.player = characterCreatorInstance.PlayerObject;
         characterCreatorInstance.gameObject.SetActive(false);

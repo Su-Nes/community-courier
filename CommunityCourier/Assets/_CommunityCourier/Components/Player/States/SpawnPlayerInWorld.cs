@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class SpawnPlayerInWorld : StateNode
 {
-    public PlayerController player;
+    [HideInInspector] public PlayerController player;
     [SerializeField] private float spawnDistanceFromGround = 30f, sceneLoadBuffer;
+    [SerializeField] private MovementState movementState;
     
     public override void Enter()
     {
@@ -23,7 +24,6 @@ public class SpawnPlayerInWorld : StateNode
     private IEnumerator SpawnInRandomScene()
     {
         SceneLoadManager.instance.LoadRandomIsland();
-        player.GiveOwnership(machine.owner);
 
         yield return new WaitForSeconds(sceneLoadBuffer);
         Vector3 spawnPos = FindFirstObjectByType<IslandArrivalPoint>().transform.position +
@@ -34,7 +34,8 @@ public class SpawnPlayerInWorld : StateNode
             player.transform.position = spawnPos;
             yield return null;
         }
-        
-        player.SetActivity(true);
+
+        movementState.player = player;
+        machine.SetState(movementState);
     }
 }
