@@ -12,14 +12,6 @@ public class CameraPivotRotate : NetworkBehaviour
     
     private Quaternion targetRotation;
 
-
-    protected override void OnSpawned()
-    {
-        base.OnSpawned();
-
-        enabled = isOwner;
-    }
-
     public void HandleRotation()
     {
         float mouseX = InputManager.instance.inputActionAsset.FindAction("Look").ReadValue<Vector2>().x * sensitivity;

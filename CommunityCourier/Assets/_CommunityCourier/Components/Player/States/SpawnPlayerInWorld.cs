@@ -14,9 +14,6 @@ public class SpawnPlayerInWorld : StateNode
     public override void Enter()
     {
         base.Enter();
-
-        if(!isOwner)
-            return;
         
         StartCoroutine(SpawnInRandomScene());
     }

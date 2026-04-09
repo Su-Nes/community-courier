@@ -13,9 +13,6 @@ public class GameStartState : StateNode
     public override void Enter()
     {
         base.Enter();
-
-        if (isServer)
-            return;
         
         uiInstance = Instantiate(startUI);
         if (uiInstance.transform.Find("Button_Start") != null)
@@ -24,15 +21,9 @@ public class GameStartState : StateNode
             Debug.LogError("Missing 'Button_Start' on Start UI prefab!");
     }
 
-    public override void Exit()
-    {
-        base.Exit();
-        
-        Destroy(uiInstance);
-    }
-
     private void StartGame()
     {
+        Destroy(uiInstance);
         machine.Next();
     }
 }

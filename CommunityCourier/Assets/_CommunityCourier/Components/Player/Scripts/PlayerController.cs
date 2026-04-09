@@ -40,7 +40,7 @@ public class PlayerController : NetworkBehaviour
         playerCamera = cameraPivot.GetChild(0).GetComponent<Camera>();
         
         if (!isOwner)
-            Destroy(cameraPivot.gameObject);
+            Destroy(playerCamera.gameObject);
     }
 
     private void OnDisable()

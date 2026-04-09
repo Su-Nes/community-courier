@@ -14,7 +14,6 @@ public class CharacterCreator : NetworkBehaviour
     
     public PlayerController PlayerObject => playerObject;
     
-    
     private SyncVar<int> bodyIndex = new(0, ownerAuth: true);
     private SyncVar<int> legIndex = new(0, ownerAuth: true);
     private SyncVar<int> bagIndex = new(0, ownerAuth: true);
@@ -46,10 +45,6 @@ public class CharacterCreator : NetworkBehaviour
         base.OnSpawned();
         
         characterBuilder = playerObject.BodyTransform.GetComponent<CharacterBuilder>();
-        BuildAllOtherPlayerCharacters();
-
-        if (!isOwner)
-            return;
         
         bodyButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Body);});
         InitiateButton(Parts.Body, bodyButton.transform.GetComponentInChildren<TMP_Text>());
@@ -69,7 +64,6 @@ public class CharacterCreator : NetworkBehaviour
         accentMatButton.onClick.AddListener(delegate {CycleBodyPart(Parts.AccentMaterial);});
         
         CreateRandomCharacter();
-        BuildAllOtherPlayerCharacters();
     }
 
     private void InitiateButton(Parts part, TMP_Text buttonText)
@@ -113,8 +107,7 @@ public class CharacterCreator : NetworkBehaviour
                 break;
         }
         
-        CallForBuildCharacter(owner.GetValueOrDefault());
-        BuildAllOtherPlayerCharacters();
+        CallForBuildCharacter();
     }
     
     
@@ -189,8 +182,7 @@ public class CharacterCreator : NetworkBehaviour
                 break;
         }
 
-        CallForBuildCharacter(owner.GetValueOrDefault());
-        BuildAllOtherPlayerCharacters();
+        CallForBuildCharacter();
     }
 
     public void CreateRandomCharacter()
@@ -212,31 +204,16 @@ public class CharacterCreator : NetworkBehaviour
         InitiateButton(Parts.EyeR, eyeRButton.transform.GetComponentInChildren<TMP_Text>());
         InitiateButton(Parts.Mouth, mouthButton.transform.GetComponentInChildren<TMP_Text>());
         
-        CallForBuildCharacter(owner.GetValueOrDefault());
-        BuildAllOtherPlayerCharacters();
+        CallForBuildCharacter();
     }
 
-    [TargetRpc]
-    public void CallForBuildCharacter(PlayerID target)
+    public void CallForBuildCharacter()
     {
         characterBuilder.BuildCharacter(bodyIndex.value, legIndex.value, bagIndex.value, leftEyeIndex.value, rightEyeIndex.value, mouthIndex.value, bodyMaterialIndex.value, bagMaterialIndex.value, accentMaterialIndex.value);
     }
 
-    private void BuildAllOtherPlayerCharacters()
-    {
-        foreach (var charCreator in FindObjectsOfType<CharacterCreator>())
-        {
-            if (charCreator.owner.GetValueOrDefault() != owner.GetValueOrDefault())
-            {
-                CallForBuildCharacter(charCreator.owner.GetValueOrDefault());
-            }
-        }
-    }
-
     public void FinishCharacterCreation()
     {
-        BuildAllOtherPlayerCharacters();
-
         PlayerData newPlayer = new();
         newPlayer.SetPlayerID(owner.GetValueOrDefault());
         newPlayer.SetCharacterBuildData(bodyIndex.value, legIndex.value, bagIndex.value, leftEyeIndex.value, rightEyeIndex.value, mouthIndex.value, bodyMaterialIndex.value, bagMaterialIndex.value, accentMaterialIndex.value);

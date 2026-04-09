@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ConnectedPlayerManager : NetworkBehaviour
 {
-    private SyncArray<PlayerData> ConnectedPlayers;
+    private SyncList<PlayerData> ConnectedPlayers = new();
     
     public static ConnectedPlayerManager instance;
 
