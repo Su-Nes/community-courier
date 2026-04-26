@@ -47,8 +47,7 @@ public class CharacterAnimator : NetworkBehaviour
         }
         
         bool isMoving = transform.position != lastPosition;
-        if (!isOwner)
-            print($"{owner.ToString()} is moving: {isMoving}");
+        
         if (isMoving)
         {
             IsMoving();
