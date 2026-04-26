@@ -32,9 +32,4 @@ public class SpawnPlayersState : StateNode
 
         machine.Next();
     }
-
-    public override void Exit()
-    {
-        
-    }
 }
