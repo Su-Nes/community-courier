@@ -9,10 +9,7 @@ using Random = UnityEngine.Random;
 
 public class CharacterCreator : NetworkBehaviour
 {
-    [SerializeField] private PlayerController playerObject;
     private CharacterBuilder characterBuilder;
-    
-    public PlayerController PlayerObject => playerObject;
     
     private SyncVar<int> bodyIndex = new(0, ownerAuth: true);
     private SyncVar<int> legIndex = new(0, ownerAuth: true);
@@ -44,7 +41,7 @@ public class CharacterCreator : NetworkBehaviour
     {
         base.OnSpawned();
         
-        characterBuilder = playerObject.BodyTransform.GetComponent<CharacterBuilder>();
+        characterBuilder = GetComponentInChildren<CharacterBuilder>();
         
         bodyButton.onClick.AddListener(delegate {CycleBodyPart(Parts.Body);});
         InitiateButton(Parts.Body, bodyButton.transform.GetComponentInChildren<TMP_Text>());
@@ -217,8 +214,5 @@ public class CharacterCreator : NetworkBehaviour
         PlayerData newPlayer = new();
         newPlayer.SetPlayerID(owner.GetValueOrDefault());
         newPlayer.SetCharacterBuildData(bodyIndex.value, legIndex.value, bagIndex.value, leftEyeIndex.value, rightEyeIndex.value, mouthIndex.value, bodyMaterialIndex.value, bagMaterialIndex.value, accentMaterialIndex.value);
-        
-        ConnectedPlayerManager.instance.AddPlayer(newPlayer);
-        transform.parent.GetComponent<CharacterCreationState>().CharacterComplete();
     }
 }

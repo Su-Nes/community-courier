@@ -27,16 +27,5 @@ public class CharacterCreationState : StateNode
     {
         characterCreatorInstance = Instantiate(characterCreatorPrefab, transform);
         characterCreatorInstance.GiveOwnership(localPlayer);
-        characterCreatorInstance.PlayerObject.GiveOwnership(localPlayer);
-    }
-
-    public void CharacterComplete()
-    {
-        characterCreatorInstance.PlayerObject.PlayerCamera.gameObject.SetActive(true);
-        characterCreatorInstance.PlayerObject.transform.SetParent(machine.transform);
-        spawnStateNode.playerPrefab = characterCreatorInstance.PlayerObject;
-        
-        machine.SetState(spawnStateNode);
-        characterCreatorInstance.gameObject.SetActive(false);
     }
 }

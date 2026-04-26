@@ -22,7 +22,7 @@ public class ConnectedPlayerManager : NetworkBehaviour
 
     private void Start()
     {
-        StartCoroutine(SpawnPlayers());
+        AddPlayer(new PlayerData());
     }
 
     [ServerRpc(requireOwnership: false)]
@@ -32,17 +32,11 @@ public class ConnectedPlayerManager : NetworkBehaviour
             return; 
         
         ConnectedPlayers.Add(player);
-
-        foreach (PlayerData playerData in ConnectedPlayers)
-        {
-            print(playerData.ID.ToString());
-        }
     }
 
     private IEnumerator SpawnPlayers()
     {
         yield return new WaitForSeconds(1f);
-        print(networkManager.playerCount);
         foreach (var player in networkManager.players)
         {
             StateMachine newPlayer = Instantiate(playerObject);
