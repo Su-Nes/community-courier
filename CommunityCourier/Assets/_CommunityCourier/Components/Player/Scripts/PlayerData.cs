@@ -5,33 +5,33 @@ using UnityEngine;
 
 public class PlayerData
 {
-    private PlayerID playerID;
+    public PlayerID ID;
     
-    private int bodyIndex,
-        legIndex,
-        bagIndex,
-        leftEyeIndex,
-        rightEyeIndex,
-        mouthIndex,
-        bodyMaterialIndex,
-        bagMaterialIndex,
-        accentMaterialIndex;
+    public int BodyIndex,
+        LegIndex,
+        BagIndex,
+        LeftEyeIndex,
+        RightEyeIndex,
+        MouthIndex,
+        BodyMaterialIndex,
+        BagMaterialIndex,
+        AccentMaterialIndex;
 
-    public void SetPlayerID(PlayerID ID)
+    public void SetPlayerID(PlayerID id)
     {
-        playerID = ID;
+        this.ID = id;
     }
     
     public void SetCharacterBuildData(int body, int leg, int bag, int leftEye, int rightEye, int mouth, int bodyMaterial, int bagMaterial, int accentMaterial)
     {
-        bodyIndex = body;
-        legIndex = leg;
-        bagIndex = bag;
-        leftEyeIndex = leftEye;
-        rightEyeIndex = rightEye;
-        mouthIndex = mouth;
-        bodyMaterialIndex = bodyMaterial;
-        bagMaterialIndex = bagMaterial;
-        accentMaterialIndex = accentMaterial;
+        BodyIndex = body;
+        LegIndex = leg;
+        BagIndex = bag;
+        LeftEyeIndex = leftEye;
+        RightEyeIndex = rightEye;
+        MouthIndex = mouth;
+        BodyMaterialIndex = bodyMaterial;
+        BagMaterialIndex = bagMaterial;
+        AccentMaterialIndex = accentMaterial;
     }
 }

@@ -13,6 +13,9 @@ public class GameStartState : StateNode
     public override void Enter()
     {
         base.Enter();
+
+        if (!isOwner)
+            return;
         
         uiInstance = Instantiate(startUI);
         if (uiInstance.transform.Find("Button_Start") != null)
@@ -23,7 +26,6 @@ public class GameStartState : StateNode
 
     private void StartGame()
     {
-        machine.GiveOwnership(localPlayer);
         Destroy(uiInstance);
         machine.Next();
     }
