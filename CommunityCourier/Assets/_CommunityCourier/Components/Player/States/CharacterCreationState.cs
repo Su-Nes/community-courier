@@ -9,15 +9,22 @@ public class CharacterCreationState : StateNode
     [SerializeField] private CharacterCreator characterCreatorPrefab;
     private CharacterCreator characterCreatorInstance;
 
-    [SerializeField] private SpawnPlayerInWorld spawnStateNode;
+    private LoadStartingScene spawnStateNode;
 
     public override void Enter()
     {
         base.Enter();
 
-        if (characterCreatorInstance != null)
+        if (characterCreatorInstance != null || !machine.isOwner)
             return;
-            
+
+        spawnStateNode = machine.transform.GetComponentInChildren<LoadStartingScene>();
+        
+        InstantiateCharacterCreator();
+    }
+
+    private void InstantiateCharacterCreator()
+    {
         characterCreatorInstance = Instantiate(characterCreatorPrefab, transform);
         characterCreatorInstance.GiveOwnership(localPlayer);
         characterCreatorInstance.PlayerObject.GiveOwnership(localPlayer);
@@ -26,9 +33,10 @@ public class CharacterCreationState : StateNode
     public void CharacterComplete()
     {
         characterCreatorInstance.PlayerObject.PlayerCamera.gameObject.SetActive(true);
-        
+        characterCreatorInstance.PlayerObject.transform.SetParent(machine.transform);
         spawnStateNode.playerPrefab = characterCreatorInstance.PlayerObject;
-        characterCreatorInstance.gameObject.SetActive(false);
+        
         machine.SetState(spawnStateNode);
+        characterCreatorInstance.gameObject.SetActive(false);
     }
 }

@@ -8,6 +8,8 @@ public class SceneLoadManager : MonoBehaviour
     public static SceneLoadManager instance;
 
     [SerializeField] private int[] islandIndexes;
+    private bool isLoading;
+    public bool IsLoading => isLoading;
 
     private void Awake()
     {
@@ -29,7 +31,11 @@ public class SceneLoadManager : MonoBehaviour
 
     private IEnumerator LoadScene(int sceneIndex)
     {
+        isLoading = true;
+        
         yield return SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneIndex));
+        
+        isLoading = false;
     }
 }

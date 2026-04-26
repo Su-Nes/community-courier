@@ -7,7 +7,6 @@ using UnityEngine;
 public class SpawnPlayersState : StateNode
 {
     [SerializeField] private StateMachine playerStateMachine;
-    private StateMachine playerInstance;
 
     public override void Enter(bool asServer)
     {
@@ -21,15 +20,14 @@ public class SpawnPlayersState : StateNode
 
     private void SpawnPlayers()
     {
-        int playerIndex = 0;
         foreach (var player in networkManager.players)
         {
-            playerInstance = Instantiate(playerStateMachine, Vector3.right * playerIndex * 100f + Vector3.up * 100f, Quaternion.identity);
-            playerInstance.GiveOwnership(player);
-            playerInstance.gameObject.name = $"Player {player.id}";
-            playerIndex++;
+            if (player != localPlayer)
+            {
+                var playerInstance = Instantiate(playerStateMachine);
+                playerInstance.GiveOwnership(player);
+                playerInstance.gameObject.name = $"Player {player.id}";
+            }
         }
-
-        machine.Next();
     }
 }

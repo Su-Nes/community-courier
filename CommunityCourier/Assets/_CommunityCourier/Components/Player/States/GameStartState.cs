@@ -23,6 +23,7 @@ public class GameStartState : StateNode
 
     private void StartGame()
     {
+        machine.GiveOwnership(localPlayer);
         Destroy(uiInstance);
         machine.Next();
     }

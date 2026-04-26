@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3039066564521532150}
   - component: {fileID: 6303120390234364801}
   m_Layer: 0
-  m_Name: SpawningState
+  m_Name: LoadScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,10 +53,9 @@ MonoBehaviour:
   _directChildren: []
   _networkRules: {fileID: 0}
   _visitiblityRules: {fileID: 0}
-  player: {fileID: 0}
+  playerPrefab: {fileID: 0}
   spawnDistanceFromGround: 30
   sceneLoadBuffer: 1
-  movementState: {fileID: 2722235850319571053}
 --- !u!1 &2212822532995094756
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,7 +302,7 @@ GameObject:
   - component: {fileID: 6759062345594501695}
   - component: {fileID: 547893671304215587}
   m_Layer: 0
-  m_Name: CharacterCreationState
+  m_Name: CharacterCreation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -347,4 +346,3 @@ MonoBehaviour:
   _visitiblityRules: {fileID: 0}
   characterCreatorPrefab: {fileID: 2133885177541564045, guid: d9c18d61280915a49abc10fd5ae373ed,
     type: 3}
-  spawnStateNode: {fileID: 6303120390234364801}
