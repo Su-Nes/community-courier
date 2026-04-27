@@ -5,25 +5,12 @@ using UnityEngine;
 
 public class PlayerCounter : NetworkBehaviour
 {
-    private void OnEnable()
-    {
-        networkManager.onPlayerJoined += OnPlayerJoined;
-        networkManager.onPlayerLeft += OnPlayerLeft;
-    }
 
-    private void OnDisable()
+    private void Update()
     {
-        networkManager.onPlayerJoined -= OnPlayerJoined;
-        networkManager.onPlayerLeft -= OnPlayerLeft;
-    }
-
-    private void OnPlayerJoined(PlayerID player, bool smth, bool smth2)
-    {
-        ChangePlayerCountText();
-    }
-    
-    private void OnPlayerLeft(PlayerID player, bool smth)
-    {
+        if (networkManager == null)
+            return;
+        
         ChangePlayerCountText();
     }
 

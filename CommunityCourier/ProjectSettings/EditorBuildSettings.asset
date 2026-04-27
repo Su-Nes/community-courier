@@ -6,14 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_CommunityCourier/World/_ComponentScenes/MasterScene.unity
+    path: Assets/_CommunityCourier/World/MasterScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/_CommunityCourier/World/Levels/TestLevel/TestEnvironment 1.unity
+    path: Assets/_CommunityCourier/World/Levels/MainLevel/MainLevel.unity
     guid: aaa8c8ee541987a40a5b3080fa928889
-  - enabled: 1
-    path: Assets/_CommunityCourier/World/Levels/TestLevel/TestEnvironment 2.unity
-    guid: 00bb7642b10e3d04d8db826badc17e9e
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 6a026bdda926b1f419ceff819430871a,
       type: 2}
