@@ -199,6 +199,7 @@ Transform:
   m_Children:
   - {fileID: 1705841487}
   - {fileID: 1845616109}
+  - {fileID: 858671122}
   m_Father: {fileID: 1432535659}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &266931466
@@ -226,7 +227,7 @@ MonoBehaviour:
   _states:
   - {fileID: 1705841488}
   - {fileID: 1845616110}
---- !u!1 &569887126
+--- !u!1 &858671121
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,29 +235,53 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 569887127}
+  - component: {fileID: 858671122}
+  - component: {fileID: 858671123}
   m_Layer: 0
-  m_Name: DeliveryManager
+  m_Name: DeliveriesActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &569887127
+--- !u!4 &858671122
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 569887126}
+  m_GameObject: {fileID: 858671121}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1432535659}
+  m_Father: {fileID: 266931465}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &858671123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858671121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fd892c86c5291479a52539398d4d15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  restockInterval: 30
+  restockBatch: 3
 --- !u!1 &1022704311
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +500,6 @@ Transform:
   - {fileID: 266931465}
   - {fileID: 1576905255}
   - {fileID: 90018213}
-  - {fileID: 569887127}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1519845521

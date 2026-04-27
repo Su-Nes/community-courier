@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DepotScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private DeliveryPackage packagePrefab;
+    [SerializeField] private Transform packageHolder;
+    [SerializeField] private Transform[] packageSpawnPoints;
+
+    public void SpawnPackage()
     {
-        
+        DeliveryPackage newPackage = Instantiate(packagePrefab, packageSpawnPoints[packageHolder.childCount].position, transform.rotation, packageHolder);
+        newPackage.InitializePackage(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool IsFull()
     {
-        
+        return packageHolder.childCount >= packageSpawnPoints.Length;
     }
 }

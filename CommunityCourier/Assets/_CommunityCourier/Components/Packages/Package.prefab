@@ -96,7 +96,9 @@ GameObject:
   - component: {fileID: 4085235197390587100}
   - component: {fileID: 7619407842963977990}
   - component: {fileID: 8461058680082846452}
+  - component: {fileID: 9029435646135683367}
   - component: {fileID: 3441899382783693098}
+  - component: {fileID: 643620286484053497}
   m_Layer: 0
   m_Name: Package
   m_TagString: Untagged
@@ -191,6 +193,64 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9029435646135683367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2758612019352739885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a2e49d4ea3c6844900bf9736d5c74b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costMin: 8.12
+  costMax: 25.3
+  randAdjectives:
+  - Tempura
+  - Green
+  - Large
+  - Jumbo
+  - Mysterious
+  - Oiled
+  - Deep Fried
+  - Shrimp
+  - Crunchy
+  - Melting
+  - Cold
+  - Small
+  - Juicy
+  - Loud
+  - Messed Up
+  - Polite
+  - Cheese
+  - Fruity
+  - Stupid
+  - Demonic
+  - Gray
+  randNames:
+  - Cocktail
+  - Wrap
+  - Kebab
+  - Pizza
+  - Fries
+  - Salad
+  - Mac
+  - Burger
+  - Sushi
+  - Lasagna
+  - Salmon
+  - Peas
+  - Apple
+  - Dumplings
+  - Cola
+  - Gnocchi
+  - Wings
+  - Mush
+  - Chips
+  - Cereal
+  - Tofu
 --- !u!114 &3441899382783693098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,3 +267,34 @@ MonoBehaviour:
   heightBobAmplitude: 0.01
   bobSpeed: 5
   rotationSpeed: 60
+--- !u!114 &643620286484053497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2758612019352739885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817fe5016bd0a2a49a95b6eb338bb132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _syncPosition: 1
+  _syncRotation: 1
+  _syncScale: 1
+  _syncParent: 1
+  _interpolateSettings: 7
+  _minBufferSize: 1
+  _maxBufferSize: 2
+  _characterControllerPatch: 0
+  _ownerAuth: 1
+  _interpolationTiming: 0
