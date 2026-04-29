@@ -1,7 +1,8 @@
+using PurrNet;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class DeliveryPackage : MonoBehaviour
+public class DeliveryPackage : NetworkBehaviour
 {
     [SerializeField] private float costMin = 8.12f, costMax = 25.3f;
     public float Cost { get; private set; }
@@ -14,7 +15,7 @@ public class DeliveryPackage : MonoBehaviour
     public void InitializePackage(DepotScript startDepot)
     {
         DeliveryManager deliveries = FindObjectOfType<DeliveryManager>();
-        
+
         gameObject.name = $"{randAdjectives[Random.Range(0, randAdjectives.Length)]} {randNames[Random.Range(0, randNames.Length)]}";
         
         originDepot = startDepot;

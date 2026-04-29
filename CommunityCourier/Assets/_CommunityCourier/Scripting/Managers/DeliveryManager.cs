@@ -15,19 +15,19 @@ public class DeliveryManager : StateNode
     private float t;
     [SerializeField] private int restockBatch = 3;
 
-    public override void Enter(bool asServer)
+    /*public override void Enter(bool asServer)
     {
         base.Enter(asServer);
-        
-        enabled = asServer;
-        
-        if (depots.Count > 0)
-            return;
-        
-        AssignDepots();
-    }
 
-    private void AssignDepots()
+        enabled = asServer;
+
+        if (depots.Count > 0 || !asServer)
+            return;
+
+        AssignDepots();
+    }*/
+
+    public void AssignDepots()
     {
         foreach(var depot in FindObjectsOfType<DepotScript>())
             depots.Add(depot);

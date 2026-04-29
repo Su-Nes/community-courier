@@ -36,5 +36,8 @@ public class SpawnPlayerInWorld : StateNode
         }
         
         player.SetActivity(true);
+        
+        if (isServer)
+            FindObjectOfType<DeliveryManager>().AssignDepots();
     }
 }

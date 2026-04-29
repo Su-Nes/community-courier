@@ -227,6 +227,7 @@ MonoBehaviour:
   _states:
   - {fileID: 1705841488}
   - {fileID: 1845616110}
+  - {fileID: 858671123}
 --- !u!1 &858671121
 GameObject:
   m_ObjectHideFlags: 0

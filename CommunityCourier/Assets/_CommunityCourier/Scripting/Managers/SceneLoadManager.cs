@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using PurrNet;
+using PurrNet.Modules;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoadManager : MonoBehaviour
+public class SceneLoadManager : NetworkBehaviour
 {
     public static SceneLoadManager instance;
 
@@ -29,7 +31,9 @@ public class SceneLoadManager : MonoBehaviour
 
     private IEnumerator LoadScene(int sceneIndex)
     {
-        yield return SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneIndex));
+        if (!isServer)
+            yield break;
+
+        yield return networkManager.sceneModule.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
     }
 }
