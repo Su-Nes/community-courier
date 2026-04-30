@@ -2,7 +2,7 @@ using PurrNet;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class DeliveryPackage : NetworkBehaviour
+public class DeliveryPackage : InteractableScript
 {
     [SerializeField] private float costMin = 8.12f, costMax = 25.3f;
     public float Cost { get; private set; }
@@ -31,8 +31,17 @@ public class DeliveryPackage : NetworkBehaviour
         Cost = Random.Range(costMin, costMax);
         Cost = Mathf.Round(Cost * 100f) / 100.0f;
         
-        print($"{gameObject.name} {Cost}$. deliver to {targetDepot.gameObject.name}");
-        
         deliveries.AddPackage(this);
+    }
+
+    [ObserversRpc]
+    public void SetPackageActive(bool activity)
+    {
+        gameObject.SetActive(activity);
+    }
+
+    public override void Interact(InteractionManager interactor)
+    {
+        interactor.packageManager.TakePackage(this);
     }
 }

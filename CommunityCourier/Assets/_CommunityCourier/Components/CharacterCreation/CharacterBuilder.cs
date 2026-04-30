@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class CharacterBuilder : NetworkBehaviour
 {
-    
     public GameObject[] bodies;
     public GameObject[] legs;
     public float shortLegLength, normalLegLength, longLegLength;
@@ -21,11 +20,7 @@ public class CharacterBuilder : NetworkBehaviour
     
     public void BuildCharacter(int bodyIndex, int legIndex, int bagIndex, int leftEyeIndex, int rightEyeIndex, int mouthIndex, int bodyMaterialIndex, int bagMaterialIndex, int accentMaterialIndex)
     {
-        // destroy all children under player body transform. yea destroying everything every time one part changes is bad optimization but here it hopefully shouldn't matter
-        foreach (Transform child in transform)
-        {
-            Destroy(child.gameObject);
-        }
+        DestroyAllBodies();
         
         // instantiate body of character
         Transform characterBody = Instantiate(bodies[bodyIndex], transform).transform;
@@ -95,6 +90,15 @@ public class CharacterBuilder : NetworkBehaviour
             case 2:
                 characterBody.Translate(-characterBody.up * longLegLength);
                 break;
+        }
+    }
+    
+    private void DestroyAllBodies()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.gameObject.name.Contains("Body"))
+                Destroy(child.gameObject);
         }
     }
 }

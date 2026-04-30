@@ -15,7 +15,7 @@ public class CharacterAnimator : NetworkBehaviour
     
     public void AssignBodyParts()
     {
-        body = transform.GetChild(0);
+        body = FindBody();
         bagPivot = body.Find("Pivot_Bag");
         legPivot = body.Find("Pivot_Legs");
         legL = legPivot.GetChild(0).Find("LegL");
@@ -36,6 +36,20 @@ public class CharacterAnimator : NetworkBehaviour
         startZL = eyeL.localScale.z;
         startZR = eyeR.localScale.z;
         RandomizeBlinkTimer();
+    }
+
+    private Transform FindBody()
+    {
+        int childIndex = 0;
+        while (childIndex < transform.childCount)
+        {
+            if (transform.GetChild(childIndex).name.Contains("Body"))
+                return transform.GetChild(childIndex);
+            
+            childIndex++;
+        }
+        
+        return null;
     }
 
     private void Update()
