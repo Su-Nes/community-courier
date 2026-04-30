@@ -23,8 +23,11 @@ public class SpawnPlayerInWorld : StateNode
     private IEnumerator SpawnInRandomScene()
     {
         SceneLoadManager.instance.LoadRandomIsland();
+        
         player.GiveOwnership(machine.owner);
-
+        foreach(NetworkBehaviour netObj in player.GetComponentsInChildren<NetworkBehaviour>())
+            netObj.GiveOwnership(machine.owner);
+        
         yield return new WaitForSeconds(sceneLoadBuffer);
         Vector3 spawnPos = FindFirstObjectByType<IslandArrivalPoint>().transform.position +
                            Vector3.up * spawnDistanceFromGround;

@@ -13,6 +13,8 @@ public class CharacterCreator : NetworkBehaviour
     private CharacterBuilder characterBuilder;
     
     public PlayerController PlayerObject => playerObject;
+
+    [SerializeField] private SyncEvent onFinishCreation;
     
     
     private SyncVar<int> bodyIndex = new(0, ownerAuth: true);
@@ -232,10 +234,17 @@ public class CharacterCreator : NetworkBehaviour
             }
         }
     }
-
+    
     public void FinishCharacterCreation()
     {
         BuildAllOtherPlayerCharacters();
         transform.parent.GetComponent<CharacterCreationState>().CharacterComplete();
+    }
+    
+    public void FinishWithRPC()
+    {
+        print(networkManager.isServer);
+        FinishCharacterCreation();
+        onFinishCreation.Invoke();
     }
 }

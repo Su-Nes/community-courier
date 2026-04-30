@@ -166,6 +166,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51ea5fd710b2c048a0a3fc1b7cd458a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
   islandIndexes: 01000000
 --- !u!1 &266931464
 GameObject:
@@ -751,10 +760,7 @@ MonoBehaviour:
   _directChildren: []
   _networkRules: {fileID: 0}
   _visitiblityRules: {fileID: 0}
-  startUIAdmin: {fileID: 741169422094224019, guid: 95d4bde5556ab3143a8bb8ba948d44ed,
-    type: 3}
-  startUIClient: {fileID: 741169422094224019, guid: 4c53137c4a1cd644ab0c3fe7ebfeab4b,
-    type: 3}
+  startUI: {fileID: 741169422094224019, guid: 95d4bde5556ab3143a8bb8ba948d44ed, type: 3}
 --- !u!1 &1845616108
 GameObject:
   m_ObjectHideFlags: 0

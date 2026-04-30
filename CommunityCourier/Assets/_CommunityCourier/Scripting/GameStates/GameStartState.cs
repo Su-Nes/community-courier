@@ -6,40 +6,27 @@ using UnityEngine.UI;
 
 public class GameStartState : StateNode
 {
-    [SerializeField] private GameObject startUIAdmin, startUIClient;
+    [SerializeField] private GameObject startUI;
     private GameObject uiInstance;
 
-    public override void Enter(bool asServer)
+    public override void Enter()
     {
-        base.Enter(asServer);
-
-        if (uiInstance != null)
-            return;
-            
-        if (asServer)
-        {
-            uiInstance = Instantiate(startUIAdmin);
-            if (uiInstance.transform.Find("Button_Start") != null)
-                uiInstance.transform.Find("Button_Start").GetComponent<Button>().onClick.AddListener(StartGame);
-            else 
-                Debug.LogError("Missing 'Button_Start' on Start UI prefab!");
-        }
-        else
-            uiInstance = Instantiate(startUIClient);
-            
+        base.Enter();
+        
+        uiInstance = Instantiate(startUI);
+        if (uiInstance.transform.Find("Button_Start") != null)
+            uiInstance.transform.Find("Button_Start").GetComponent<Button>().onClick.AddListener(StartGame);
     }
 
     public override void Exit(bool asServer)
     {
         base.Exit(asServer);
         
-        if (!asServer)
-            Destroy(uiInstance);
+        Destroy(uiInstance);
     }
 
     public void StartGame()
     {
-        Destroy(uiInstance);
         machine.Next();
     }
 }
