@@ -30,6 +30,8 @@ public class CharacterCreationState : StateNode
         characterCreatorInstance.PlayerObject.PlayerCamera.gameObject.SetActive(true);
         characterCreatorInstance.PlayerObject.transform.SetParent(transform.parent); // yoink the player object out of the character creation prefab 
         characterCreatorInstance.PlayerObject.BodyTransform.GetComponent<CharacterAnimator>().GiveOwnership(transform.parent.GetComponent<StateMachine>().owner);
+        characterCreatorInstance.PlayerObject.transform.Find("Canvas").gameObject.SetActive(true);
+        characterCreatorInstance.PlayerObject.GetComponentInChildren<StupidChat>().enabled = true;
         /*characterCreatorInstance.PlayerObject.BodyTransform.GetComponent<CharacterAnimator>().AssignBodyParts();
         */
         
