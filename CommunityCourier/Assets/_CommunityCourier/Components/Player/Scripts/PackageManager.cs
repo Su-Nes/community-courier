@@ -44,7 +44,7 @@ public class PackageManager : MonoBehaviour
         packageCanvas.gameObject.SetActive(true);
         
         packageName.text = $"Current delivery:\n{package.gameObject.name}";
-        packageDestination.text = $"Destination: {package.TargetDepot.gameObject.name}";
+        packageDestination.text = $"Destination: {package.TargetDepot.value.gameObject.name}";
         packageCost.text = $"Cost: {package.Cost}$";
     }
 

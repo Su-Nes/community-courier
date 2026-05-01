@@ -5,31 +5,30 @@ using Random = UnityEngine.Random;
 public class DeliveryPackage : InteractableScript
 {
     [SerializeField] private float costMin = 8.12f, costMax = 25.3f;
-    public float Cost { get; private set; }
+    public SyncVar<float> Cost = new(ownerAuth: true);
     [SerializeField] private string[] randAdjectives, randNames;
-    private DepotScript originDepot, targetDepot;
-    public DepotScript OriginDepot => originDepot;
-    public DepotScript TargetDepot => targetDepot;
+    public SyncVar<DepotScript> OriginDepot = new(ownerAuth: true);
+    public SyncVar<DepotScript> TargetDepot = new(ownerAuth: true);
     
 
     public void InitializePackage(DepotScript startDepot)
     {
         DeliveryManager deliveries = FindObjectOfType<DeliveryManager>();
 
-        gameObject.name = $"{randAdjectives[Random.Range(0, randAdjectives.Length)]} {randNames[Random.Range(0, randNames.Length)]}";
+        SetName($"{randAdjectives[Random.Range(0, randAdjectives.Length)]} {randNames[Random.Range(0, randNames.Length)]}");
         
-        originDepot = startDepot;
+        OriginDepot.value = startDepot;
 
         while (true) // assign random depot that isn't the origin depot
         {
-            targetDepot = deliveries.Depots[Random.Range(0, deliveries.Depots.Count)];
+            TargetDepot.value = deliveries.Depots[Random.Range(0, deliveries.Depots.Count)];
 
-            if (targetDepot != originDepot)
+            if (TargetDepot != OriginDepot)
                 break;
         }
         
-        Cost = Random.Range(costMin, costMax);
-        Cost = Mathf.Round(Cost * 100f) / 100.0f;
+        Cost.value = Random.Range(costMin, costMax);
+        Cost.value = Mathf.Round(Cost * 100f) / 100.0f;
         
         deliveries.AddPackage(this);
     }
@@ -38,6 +37,12 @@ public class DeliveryPackage : InteractableScript
     public void SetPackageActive(bool activity)
     {
         gameObject.SetActive(activity);
+    }
+
+    [ObserversRpc]
+    public void SetName(string newName)
+    {
+        gameObject.name = newName;
     }
 
     public override void Interact(InteractionManager interactor)
