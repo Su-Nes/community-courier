@@ -431,7 +431,7 @@ RectTransform:
   m_Children:
   - {fileID: 2291462310078258858}
   - {fileID: 6907544780008925720}
-  m_Father: {fileID: 682028670883286055}
+  m_Father: {fileID: 8707907823031985410}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -636,6 +636,67 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &3398919817496130523
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5193743635291898279}
+  - component: {fileID: 8174805001486095234}
+  m_Layer: 3
+  m_Name: StupidChat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5193743635291898279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3398919817496130523}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8707907823031985410}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8174805001486095234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3398919817496130523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e3cceb7e78eef41a9c82c41529dcfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  packageManager: {fileID: 5909197706078559028}
+  playerController: {fileID: 3392777906161890258}
+  textPrefab: {fileID: 606660861713574239, guid: 7fad5ddc51a107640a770cbf4b734bef,
+    type: 3}
+  textSpacing: 0.5
+  textSpawnOffset: {x: 0, y: 2.3, z: 0}
+  characterComboTime: 1
+  characterLifetime: 3
 --- !u!1 &3702100761924432302
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,6 +1012,8 @@ Transform:
   - {fileID: 682028670883286055}
   - {fileID: 8915894573369704038}
   - {fileID: 245440469523205463}
+  - {fileID: 5193743635291898279}
+  - {fileID: 7318416970486014605}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &1002557019171874646
@@ -1325,8 +1388,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7318416970486014605}
+  m_Children: []
   m_Father: {fileID: 8707907823031985410}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5909197706078559028
