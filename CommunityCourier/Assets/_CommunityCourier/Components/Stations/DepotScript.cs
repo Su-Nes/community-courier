@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using PurrNet;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class DepotScript : MonoBehaviour
+public class DepotScript : NetworkBehaviour
 {
     [SerializeField] private DeliveryPackage packagePrefab;
     [SerializeField] private Transform packageHolder;

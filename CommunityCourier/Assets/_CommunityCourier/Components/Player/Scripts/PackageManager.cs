@@ -52,7 +52,7 @@ public class PackageManager : MonoBehaviour
     {
         package.SetPackageActive(true);
         //package.transform.SetParent(null);
-        package.transform.position = transform.position;
+        package.SetPosition(transform.position);
         
         heldPackage = null;
         
