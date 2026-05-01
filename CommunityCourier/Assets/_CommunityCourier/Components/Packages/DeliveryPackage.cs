@@ -17,6 +17,13 @@ public class DeliveryPackage : InteractableScript
         StartCoroutine(WaitAndInitialize(startDepot));
     }
 
+    public void DeliverPackage(PackageManager deliverer)
+    {
+        deliverer.DropPackage(this);
+        deliverer.AddGrossProfit(Cost);
+        Destroy(gameObject);
+    }
+
     [ObserversRpc]
     public void SetPackageActive(bool activity)
     {
@@ -29,13 +36,13 @@ public class DeliveryPackage : InteractableScript
         
         string randName = $"{randAdjectives[Random.Range(0, randAdjectives.Length)]} {randNames[Random.Range(0, randNames.Length)]}";
         
-        DepotScript randTargetDepot = new DepotScript();
+        DepotScript randTargetDepot;
         DepotScript[] depots = FindObjectsOfType<DepotScript>();
         while (true) // assign random depot that isn't the origin depot
         {
             randTargetDepot = depots[Random.Range(0, depots.Length)];
 
-            if (randTargetDepot != OriginDepot.value)
+            if (randTargetDepot != startDepot)
                 break;
         }
         
