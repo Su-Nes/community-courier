@@ -11,6 +11,7 @@ public class StupidChat : NetworkBehaviour
 {
     [SerializeField] private PackageManager packageManager;
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private Transform playerBody;
     [SerializeField] private TMP_Text textPrefab;
     [SerializeField] private float textSpacing = .2f;
     [SerializeField] private Vector3 textSpawnOffset;
@@ -32,38 +33,21 @@ public class StupidChat : NetworkBehaviour
         if (!chatEnabled)
             return;
         
-        MonitorKeyboard();
+        //MonitorKeyboard();
     }
 
-    private void MonitorKeyboard()
+    private void OnGUI()
     {
-        InputSystem.onAnyButtonPress.Call(currentAction =>
+        if (!chatEnabled || !isOwner)
+            return;
+        
+        Event e = Event.current;
+        if (e.isKey)
         {
-            if (currentAction is ButtonControl button)
-            {
-                print(currentAction.name);
-                if (currentAction.name.Length > 1 || Time.time - timeAtLastButtonPress < Time.deltaTime)
-                    return;
-
-                string characterToType;
-                switch (currentAction.name)
-                {
-                    case "enter":
-                        return;
-                    
-                    case "space":
-                        characterToType = " ";
-                        break;
-                    
-                    default:
-                        characterToType = currentAction.name;
-                        break;
-                }
+            string characterToType = e.character.ToString();
                 
-                timeAtLastButtonPress = Time.time;
-                DisplayCharacter(characterToType, this);
-            }
-        });
+            DisplayCharacter(characterToType, this);
+        }
     }
 
     private void HandleCharacterCombo()
@@ -82,11 +66,12 @@ public class StupidChat : NetworkBehaviour
     [ObserversRpc]
     private void DisplayCharacter(string character, StupidChat sender)
     {
-        Vector3 charPosition = sender.transform.position + sender.TextSpawnOffset - transform.right * textSpacing * characterCombo;
-        TMP_Text newCharacter = Instantiate(textPrefab, charPosition, transform.rotation);
+        Vector3 charPosition = sender.transform.position + sender.TextSpawnOffset + playerBody.right * textSpacing * characterCombo;
+        TMP_Text newCharacter = Instantiate(textPrefab, charPosition, playerBody.rotation);
         newCharacter.text = character;
 
         characterCombo++;
+        comboTimer = 0f;
         
         StartCoroutine(DeleteText(newCharacter));
     }

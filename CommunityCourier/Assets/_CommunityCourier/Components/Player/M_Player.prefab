@@ -297,7 +297,7 @@ Transform:
   m_GameObject: {fileID: 3122512935821214842}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0, y: 2, z: -4}
+  m_LocalPosition: {x: 0, y: 2.5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -691,9 +691,10 @@ MonoBehaviour:
   _visitiblityRules: {fileID: 0}
   packageManager: {fileID: 5909197706078559028}
   playerController: {fileID: 3392777906161890258}
+  playerBody: {fileID: 245440469523205463}
   textPrefab: {fileID: 606660861713574239, guid: 7fad5ddc51a107640a770cbf4b734bef,
     type: 3}
-  textSpacing: 0.5
+  textSpacing: 0.2
   textSpawnOffset: {x: 0, y: 2.3, z: 0}
   characterComboTime: 1
   characterLifetime: 3

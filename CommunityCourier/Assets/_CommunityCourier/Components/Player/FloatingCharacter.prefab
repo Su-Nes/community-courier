@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 606660861713574239}
   - component: {fileID: 5392237467566976874}
   - component: {fileID: 301578759254237862}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FloatingCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 1}
+  m_SizeDelta: {x: 0.7, y: 0.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &5348640746373196815
 MeshRenderer:
