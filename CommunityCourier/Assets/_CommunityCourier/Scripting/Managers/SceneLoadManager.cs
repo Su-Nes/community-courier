@@ -9,7 +9,7 @@ public class SceneLoadManager : NetworkBehaviour
 {
     public static SceneLoadManager instance;
 
-    [SerializeField] private int[] islandIndexes;
+    [PurrScene, SerializeField] private string islandScene;
 
     private void Awake()
     {
@@ -26,14 +26,14 @@ public class SceneLoadManager : NetworkBehaviour
 
     public void LoadRandomIsland()
     {
-        StartCoroutine(LoadScene(islandIndexes[Random.Range(0, islandIndexes.Length)]));
+        StartCoroutine(LoadScene(islandScene));
     }
 
-    private IEnumerator LoadScene(int sceneIndex)
+    private IEnumerator LoadScene(string sceneName)
     {
         if (!isServer)
             yield break;
 
-        yield return networkManager.sceneModule.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
+        yield return networkManager.sceneModule.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
     }
 }

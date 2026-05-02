@@ -1202,7 +1202,7 @@ MonoBehaviour:
   _networkRules: {fileID: 0}
   _visitiblityRules: {fileID: 0}
   moveSpeed: 5
-  sprintSpeed: 20
+  sprintSpeed: 12
   jumpForce: 1
   gravity: -9.81
   groundCheckDistance: 0.2
