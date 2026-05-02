@@ -92,7 +92,7 @@ public class PackageManager : MonoBehaviour
     {
         package.SetPackageActive(true);
         //package.transform.SetParent(null);
-        package.SetPosition(playerController.BodyTransform.forward * dropDistance);
+        package.SetPosition(transform.position + playerController.BodyTransform.forward * dropDistance + Vector3.up * dropDistance);
         
         heldPackage = null;
         

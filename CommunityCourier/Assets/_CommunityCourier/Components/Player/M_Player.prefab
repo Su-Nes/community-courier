@@ -32,8 +32,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7318416970486014605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -97.1, y: 417.82}
   m_SizeDelta: {x: 157.2511, y: 33.4849}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Enter: toggle chat'
+  m_text: 'Enter: Chat'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6271c41001d80aa48a7f708242b7e8d7, type: 2}
   m_sharedMaterial: {fileID: -5476015231881186846, guid: 6271c41001d80aa48a7f708242b7e8d7,
@@ -831,7 +831,7 @@ MonoBehaviour:
   textPrefab: {fileID: 606660861713574239, guid: 7fad5ddc51a107640a770cbf4b734bef,
     type: 3}
   tutorialText: {fileID: 8379560947655037319}
-  textSpacing: 0.12
+  textSpacing: 0.45
   textSpawnOffset: {x: -2, y: 2, z: 0}
   characterComboTime: 1
   characterLifetime: 3
@@ -1577,6 +1577,7 @@ MonoBehaviour:
   giantArrow: {fileID: 6182363099107714610, guid: 5e616d8a2fc8ab34f97feab19436a75a,
     type: 3}
   arrowPosOffset: {x: 0, y: 10, z: 0}
+  dropDistance: 2
 --- !u!114 &6974480730067618804
 MonoBehaviour:
   m_ObjectHideFlags: 0

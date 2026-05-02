@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using PurrNet;
 using TMPro;
+using Unity.Properties;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -21,6 +22,7 @@ public class StupidChat : NetworkBehaviour
     private float comboTimer, timeAtLastButtonPress;
     private int characterCombo;
 
+    private List<string> characters = new();
     private bool chatEnabled;
     
     private void Update()
@@ -28,66 +30,95 @@ public class StupidChat : NetworkBehaviour
         if (InputManager.instance.inputActionAsset.FindAction("Submit").WasCompletedThisFrame())
             ToggleChatMode();
 
-        HandleCharacterCombo();
-
         if (!chatEnabled)
             return;
         
         //MonitorKeyboard();
+    }
+    
+    private void ToggleChatMode()
+    {
+        chatEnabled = !chatEnabled;
+
+        tutorialText.text = chatEnabled ? "Enter: " : "Enter: Chat";
+
+        playerController.SetActivity(!chatEnabled);
+        packageManager.enabled = !chatEnabled;
+
+        if (!chatEnabled)
+            DisplayCharacter(characters, this);
     }
 
     private void OnGUI()
     {
         if (!chatEnabled || !isOwner)
             return;
-        
-        Event e = Event.current;
-        if (e.isKey)
-        {
-            string characterToType = e.character.ToString();
 
-            DisplayCharacter(characterToType, this, characterCombo);
+        Event e = Event.current;
+        if (e.isKey && e.type == EventType.KeyUp)
+        {
+            print(e.type);
+            //print($"{(int)e.keyCode}");
+            
+            string characterToType = e.keyCode.ToString().ToLower();
+
+            switch (characterToType)
+            {
+                case "space":
+                    characterToType = " ";
+                    break;
+                
+                case "return":
+                    characterToType = "";
+                    break;
+                
+                case "quote":
+                    characterToType = "'";
+                    break;
+                
+                case "backspace":
+                    characters.RemoveAt(characters.Count - 1);
+                    WriteUI();
+                    return;
+                
+                case "leftshift":
+                case "leftcontrol":
+                case "rightshift":
+                case "rightcontrol":
+                case "tab":
+                    return;
+            }
+            
+            characters.Add(characterToType);
+            WriteUI();
         }
     }
 
-    private void HandleCharacterCombo()
+    private void WriteUI()
     {
-        if (characterCombo > 0)
-        {
-            comboTimer += Time.deltaTime;
-            if (comboTimer >= characterComboTime)
-            {
-                characterCombo = 0;
-                comboTimer = 0;
-            }
-        }
+        string currentWrittenText = "Enter: ";
+        foreach (string character in characters)
+            currentWrittenText += character;
+        tutorialText.text = currentWrittenText;
     }
 
     [ObserversRpc]
-    private void DisplayCharacter(string character, StupidChat sender, int comboNumber)
+    private void DisplayCharacter(List<string> characterList, StupidChat sender)
     {
-        Vector3 charPosition = sender.transform.position + playerBody.right * sender.TextSpawnOffset.x + playerBody.right * textSpacing * comboNumber;
-        charPosition.y += sender.TextSpawnOffset.y;
-        TMP_Text newCharacter = Instantiate(textPrefab, charPosition, playerBody.rotation);
-        newCharacter.text = character;
-
-        if (isOwner)
+        foreach (string character in characterList)
         {
+            Vector3 charPosition = sender.transform.position + playerBody.right * sender.TextSpawnOffset.x + playerBody.right * textSpacing * characterCombo;
+            charPosition.y += sender.TextSpawnOffset.y;
+            TMP_Text newCharacter = Instantiate(textPrefab, charPosition, playerBody.rotation);
+            newCharacter.text = character;
+
             characterCombo++;
-            comboTimer = 0f;
+            
+            StartCoroutine(DeleteText(newCharacter));
         }
         
-        StartCoroutine(DeleteText(newCharacter));
-    }
-
-    private void ToggleChatMode()
-    {
-        chatEnabled = !chatEnabled;
-
-        tutorialText.text = chatEnabled ? "Start typing! (preferably slowly)" : "Enter: Toggle chat";
-
-        playerController.SetActivity(!chatEnabled);
-        packageManager.enabled = !chatEnabled;
+        characterCombo = 0;
+        characters.Clear();
     }
 
     private IEnumerator DeleteText(TMP_Text textObj)
