@@ -29,8 +29,7 @@ public class SpawnPlayerInWorld : StateNode
             netObj.GiveOwnership(machine.owner);
         
         yield return new WaitForSeconds(sceneLoadBuffer);
-        Vector3 spawnPos = FindFirstObjectByType<IslandArrivalPoint>().transform.position +
-                           Vector3.up * spawnDistanceFromGround;
+        Vector3 spawnPos = FindFirstObjectByType<IslandArrivalPoint>().GetSpawnPoint().position;
         
         for (int i = 0; i < 60; i++) // it's so stupid that I have to do this. maybe it's a problem with the network transform?
         {
