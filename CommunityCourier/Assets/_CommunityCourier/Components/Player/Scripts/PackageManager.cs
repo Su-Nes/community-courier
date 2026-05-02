@@ -12,16 +12,20 @@ public class PackageManager : MonoBehaviour
     [SerializeField] private Transform giantArrow;
     private Transform arrowInstance;
     [SerializeField] private Vector3 arrowPosOffset;
+    [SerializeField] private float dropDistance = 1.5f;
 
     private float revenue;
     public float Revenue => revenue;
     
     private DeliveryPackage heldPackage;
     public DeliveryPackage Package => heldPackage;
+    
+    private PlayerController playerController;
 
     private void Start()
     {
         packageUI.SetActive(false);
+        playerController = transform.parent.GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -45,7 +49,7 @@ public class PackageManager : MonoBehaviour
     public void TakePackage(DeliveryPackage package)
     {
         if (heldPackage != null)
-            DropPackage(heldPackage);
+            return;
 
         AssignPackage(package);
     }
@@ -72,6 +76,8 @@ public class PackageManager : MonoBehaviour
 
     private void SetArrowPosition(DeliveryPackage package)
     {
+        DisableArrow();
+        
         arrowInstance = Instantiate(giantArrow);
         arrowInstance.position = package.TargetDepot.value.transform.position + arrowPosOffset;
     }
@@ -86,7 +92,7 @@ public class PackageManager : MonoBehaviour
     {
         package.SetPackageActive(true);
         //package.transform.SetParent(null);
-        package.SetPosition(transform.position);
+        package.SetPosition(playerController.BodyTransform.forward * dropDistance);
         
         heldPackage = null;
         

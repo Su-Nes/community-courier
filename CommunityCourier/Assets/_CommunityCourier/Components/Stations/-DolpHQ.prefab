@@ -58,7 +58,7 @@ MonoBehaviour:
   _directChildren: []
   _networkRules: {fileID: 0}
   _visitiblityRules: {fileID: 0}
-  moneyGoal: 100
+  moneyGoal: 1000
   goalText:
   - {fileID: 8856031144422491636}
   - {fileID: 5322106798643568570}
