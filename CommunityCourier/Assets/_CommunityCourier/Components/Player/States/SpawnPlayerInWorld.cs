@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class SpawnPlayerInWorld : StateNode
 {
     public PlayerController player;
-    [SerializeField] private float spawnDistanceFromGround = 30f, sceneLoadBuffer;
+    [SerializeField] private float sceneLoadBuffer;
     
     public override void Enter()
     {

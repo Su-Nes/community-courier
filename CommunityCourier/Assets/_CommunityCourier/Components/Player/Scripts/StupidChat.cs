@@ -45,7 +45,7 @@ public class StupidChat : NetworkBehaviour
         if (e.isKey)
         {
             string characterToType = e.character.ToString();
-            print(characterToType);
+
             DisplayCharacter(characterToType, this, characterCombo);
         }
     }
