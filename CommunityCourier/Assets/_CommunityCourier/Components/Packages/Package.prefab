@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2349716878410326380
 Transform:
   m_ObjectHideFlags: 0
@@ -244,6 +244,10 @@ MonoBehaviour:
   _visitiblityRules: {fileID: 0}
   costMin: 8.12
   costMax: 25.3
+  Cost:
+    _value: 0
+    _ownerAuth: 0
+    _sendIntervalInSeconds: 0
   randAdjectives:
   - Tempura
   - Green
@@ -288,6 +292,14 @@ MonoBehaviour:
   - Chips
   - Cereal
   - Tofu
+  OriginDepot:
+    _value: {fileID: 0}
+    _ownerAuth: 0
+    _sendIntervalInSeconds: 0
+  TargetDepot:
+    _value: {fileID: 0}
+    _ownerAuth: 0
+    _sendIntervalInSeconds: 0
 --- !u!114 &3441899382783693098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,6 +313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTf: {fileID: 2349716878410326380}
+  rotationAxis: 0
   heightBobAmplitude: 0.01
   bobSpeed: 5
   rotationSpeed: 60

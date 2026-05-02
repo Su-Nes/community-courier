@@ -32,8 +32,6 @@ public class CharacterCreationState : StateNode
         characterCreatorInstance.PlayerObject.BodyTransform.GetComponent<CharacterAnimator>().GiveOwnership(transform.parent.GetComponent<StateMachine>().owner);
         characterCreatorInstance.PlayerObject.transform.Find("Canvas").gameObject.SetActive(true);
         characterCreatorInstance.PlayerObject.GetComponentInChildren<StupidChat>().enabled = true;
-        /*characterCreatorInstance.PlayerObject.BodyTransform.GetComponent<CharacterAnimator>().AssignBodyParts();
-        */
         
         spawnStateNode.player = characterCreatorInstance.PlayerObject;
         characterCreatorInstance.gameObject.SetActive(false);

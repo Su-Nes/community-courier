@@ -12,7 +12,7 @@ public class StupidChat : NetworkBehaviour
     [SerializeField] private PackageManager packageManager;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private Transform playerBody;
-    [SerializeField] private TMP_Text textPrefab;
+    [SerializeField] private TMP_Text textPrefab, tutorialText;
     [SerializeField] private float textSpacing = .2f;
     [SerializeField] private Vector3 textSpawnOffset;
     public Vector3 TextSpawnOffset => textSpawnOffset;
@@ -45,8 +45,8 @@ public class StupidChat : NetworkBehaviour
         if (e.isKey)
         {
             string characterToType = e.character.ToString();
-                
-            DisplayCharacter(characterToType, this);
+            print(characterToType);
+            DisplayCharacter(characterToType, this, characterCombo);
         }
     }
 
@@ -64,14 +64,18 @@ public class StupidChat : NetworkBehaviour
     }
 
     [ObserversRpc]
-    private void DisplayCharacter(string character, StupidChat sender)
+    private void DisplayCharacter(string character, StupidChat sender, int comboNumber)
     {
-        Vector3 charPosition = sender.transform.position + sender.TextSpawnOffset + playerBody.right * textSpacing * characterCombo;
+        Vector3 charPosition = sender.transform.position + playerBody.right * sender.TextSpawnOffset.x + playerBody.right * textSpacing * comboNumber;
+        charPosition.y += sender.TextSpawnOffset.y;
         TMP_Text newCharacter = Instantiate(textPrefab, charPosition, playerBody.rotation);
         newCharacter.text = character;
 
-        characterCombo++;
-        comboTimer = 0f;
+        if (isOwner)
+        {
+            characterCombo++;
+            comboTimer = 0f;
+        }
         
         StartCoroutine(DeleteText(newCharacter));
     }
@@ -79,7 +83,9 @@ public class StupidChat : NetworkBehaviour
     private void ToggleChatMode()
     {
         chatEnabled = !chatEnabled;
-        
+
+        tutorialText.text = chatEnabled ? "Start typing! (preferably slowly)" : "Enter: Toggle chat";
+
         playerController.SetActivity(!chatEnabled);
         packageManager.enabled = !chatEnabled;
     }

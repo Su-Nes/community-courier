@@ -830,8 +830,9 @@ MonoBehaviour:
   playerBody: {fileID: 245440469523205463}
   textPrefab: {fileID: 606660861713574239, guid: 7fad5ddc51a107640a770cbf4b734bef,
     type: 3}
-  textSpacing: 0.15
-  textSpawnOffset: {x: 0, y: 2.3, z: 0}
+  tutorialText: {fileID: 8379560947655037319}
+  textSpacing: 0.12
+  textSpawnOffset: {x: -2, y: 2, z: 0}
   characterComboTime: 1
   characterLifetime: 3
 --- !u!1 &3702100761924432302
@@ -1201,7 +1202,7 @@ MonoBehaviour:
   _networkRules: {fileID: 0}
   _visitiblityRules: {fileID: 0}
   moveSpeed: 5
-  sprintSpeed: 8
+  sprintSpeed: 20
   jumpForce: 1
   gravity: -9.81
   groundCheckDistance: 0.2

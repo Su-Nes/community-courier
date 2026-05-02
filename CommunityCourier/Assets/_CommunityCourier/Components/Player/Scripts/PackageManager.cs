@@ -13,7 +13,8 @@ public class PackageManager : MonoBehaviour
     private Transform arrowInstance;
     [SerializeField] private Vector3 arrowPosOffset;
 
-    private float revenue, actualProfit;
+    private float revenue;
+    public float Revenue => revenue;
     
     private DeliveryPackage heldPackage;
     public DeliveryPackage Package => heldPackage;
@@ -32,6 +33,12 @@ public class PackageManager : MonoBehaviour
     public void AddGrossProfit(float profit)
     {
         revenue += profit;
+        revenueText.text = $"Revenue: {revenue}$";
+    }
+
+    public void RemoveRevenue()
+    {
+        revenue = 0f;
         revenueText.text = $"Revenue: {revenue}$";
     }
 
