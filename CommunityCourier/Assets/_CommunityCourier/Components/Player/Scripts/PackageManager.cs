@@ -9,9 +9,6 @@ public class PackageManager : MonoBehaviour
 {
     [SerializeField] private GameObject packageUI;
     [SerializeField] private TMP_Text packageName, packageDestination, packageCost, revenueText;
-    [SerializeField] private Transform giantArrow;
-    private Transform arrowInstance;
-    [SerializeField] private Vector3 arrowPosOffset;
     [SerializeField] private float dropDistance = 1.5f;
 
     private float revenue;
@@ -70,22 +67,6 @@ public class PackageManager : MonoBehaviour
         packageName.text = $"Current delivery:\n{package.gameObject.name}";
         packageDestination.text = $"Destination: {package.TargetDepot.value.gameObject.name}";
         packageCost.text = $"Cost: {package.Cost}$";
-
-        SetArrowPosition(package);
-    }
-
-    private void SetArrowPosition(DeliveryPackage package)
-    {
-        DisableArrow();
-        
-        arrowInstance = Instantiate(giantArrow);
-        arrowInstance.position = package.TargetDepot.value.transform.position + arrowPosOffset;
-    }
-
-    private void DisableArrow()
-    {
-        if (arrowInstance != null)
-            Destroy(arrowInstance.gameObject);
     }
 
     public void DropPackage(DeliveryPackage package)
@@ -97,6 +78,5 @@ public class PackageManager : MonoBehaviour
         heldPackage = null;
         
         packageUI.SetActive(false);
-        DisableArrow();
     }
 }
