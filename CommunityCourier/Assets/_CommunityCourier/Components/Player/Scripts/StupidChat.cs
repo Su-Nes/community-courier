@@ -12,6 +12,7 @@ public class StupidChat : NetworkBehaviour
 {
     [SerializeField] private PackageManager packageManager;
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private ToggleEventWithKey helpButton;
     [SerializeField] private Transform playerBody;
     [SerializeField] private TMP_Text textPrefab, tutorialText;
     [SerializeField] private float textSpacing = .2f;
@@ -43,6 +44,7 @@ public class StupidChat : NetworkBehaviour
         tutorialText.text = chatEnabled ? "Enter: " : "Enter: Chat";
 
         playerController.SetActivity(!chatEnabled);
+        helpButton.enabled = !chatEnabled;
         packageManager.enabled = !chatEnabled;
 
         if (!chatEnabled)
@@ -57,9 +59,6 @@ public class StupidChat : NetworkBehaviour
         Event e = Event.current;
         if (e.isKey && e.type == EventType.KeyUp)
         {
-            print(e.type);
-            //print($"{(int)e.keyCode}");
-            
             string characterToType = e.keyCode.ToString().ToLower();
 
             switch (characterToType)
