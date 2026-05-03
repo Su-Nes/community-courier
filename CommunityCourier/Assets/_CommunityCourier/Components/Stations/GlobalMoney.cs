@@ -39,8 +39,6 @@ public class GlobalMoney : NetworkBehaviour
     
     private IEnumerator Win()
     {
-        Application.OpenURL("https://forms.gle/6tGSsVcFEekteDkB8");
-        
         foreach (PlayerController player in FindObjectsOfType<PlayerController>())
         {
             player.GetComponent<Collider>().enabled = false;
