@@ -39,13 +39,14 @@ public class GlobalMoney : NetworkBehaviour
     
     private IEnumerator Win()
     {
+        Application.OpenURL("https://forms.gle/6tGSsVcFEekteDkB8");
+        
         foreach (PlayerController player in FindObjectsOfType<PlayerController>())
         {
             player.GetComponent<Collider>().enabled = false;
             Destroy(player.GetComponent<CharacterController>());
             player.SetActivity(false);
         }
-            
         
         int limiter = 0;
         while (limiter < 999)
@@ -55,10 +56,10 @@ public class GlobalMoney : NetworkBehaviour
                 TMP_Text newText = Instantiate(winText, player.transform.position, Quaternion.identity);
                 newText.text = winQuotes[Random.Range(0, winQuotes.Length)];
                 newText.GetComponent<Rigidbody>().isKinematic = false;
-                newText.transform.localScale *= Random.Range(3f, 15f);
+                newText.transform.localScale *= Random.Range(3f, 12f);
             }
             
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(.25f);
             
             limiter++;
         }

@@ -270,6 +270,14 @@ MonoBehaviour:
   - Stupid
   - Demonic
   - Gray
+  - Upside Down
+  - Silly
+  - Smelly
+  - Petrified
+  - Frozen
+  - Abhorrent
+  - Delicate
+  - Disrespectful
   randNames:
   - Cocktail
   - Wrap
@@ -292,6 +300,13 @@ MonoBehaviour:
   - Chips
   - Cereal
   - Tofu
+  - Omelette
+  - Bumbier
+  - Toilet Paper
+  - Cheese
+  - Milk
+  - Lump of Something
+  - Flower
   OriginDepot:
     _value: {fileID: 0}
     _ownerAuth: 0
