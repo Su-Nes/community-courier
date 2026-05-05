@@ -53,12 +53,9 @@ public class DeliveryManager : StateNode
         while (maxAttempts < 100) // roll until find depot with space
         {
             int randDepot = Random.Range(0, depots.Count);
-
-            if (!depots[randDepot].IsFull())
-            {
-                depots[randDepot].SpawnPackage();
-                break;
-            }
+            
+            depots[randDepot].SpawnPackage();
+            
             maxAttempts++;
         }
     }

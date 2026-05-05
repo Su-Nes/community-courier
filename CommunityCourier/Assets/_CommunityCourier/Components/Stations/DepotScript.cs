@@ -15,9 +15,4 @@ public class DepotScript : NetworkBehaviour
         DeliveryPackage newPackage = Instantiate(packagePrefab, packageSpawnPoints[packageHolder.childCount].position, transform.rotation, packageHolder);
         newPackage.InitializePackage(this);
     }
-
-    public bool IsFull()
-    {
-        return packageHolder.childCount >= packageSpawnPoints.Length;
-    }
 }
